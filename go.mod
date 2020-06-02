@@ -6,7 +6,6 @@ require (
 	github.com/btcsuite/btcd v0.20.1-beta
 	github.com/davecgh/go-spew v1.1.1
 	github.com/emirpasic/gods v1.12.0
-	github.com/ethereum/go-ethereum v1.9.14
 	github.com/gogo/protobuf v1.3.1
 	github.com/golang/protobuf v1.4.2
 	github.com/libp2p/go-libp2p-core v0.5.6

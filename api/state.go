@@ -34,7 +34,7 @@ type Record interface {
 	AddSibling(record Record)
 	SetHash(pending common.Hash)
 	Siblings() []Record
-	ApplyTransaction(t Transaction) (err error)
+	ApplyTransaction(t Transaction) (r []Receipt, err error)
 	Update(address common.Address, account Account) error
 	Put(address common.Address, account Account)
 }

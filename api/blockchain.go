@@ -5,6 +5,7 @@ import (
 	"github.com/gagarinchain/common/eth/common"
 	"github.com/gagarinchain/common/eth/crypto"
 	pb "github.com/gagarinchain/common/protobuff"
+	"github.com/gagarinchain/common/trie"
 	"math/big"
 	"time"
 )
@@ -20,7 +21,7 @@ type Blockchain interface {
 	GetHeadRecord() Record
 	GetTopHeight() int32
 	GetTopHeightBlocks() []Block
-	AddBlock(block Block) error
+	AddBlock(block Block) ([]Receipt, error)
 	RemoveBlock(block Block) error
 	GetGenesisBlock() Block
 	GetGenesisCert() QuorumCertificate
@@ -34,6 +35,7 @@ type Blockchain interface {
 	SetProposerGetter(proposerGetter ProposerForHeight)
 }
 
+//Caution: every Set* method MUST be called with great aware since it can potentially change hash of the block.
 type Block interface {
 	TxsCount() int
 	Txs() Iterator
@@ -42,13 +44,28 @@ type Block interface {
 	Data() []byte
 	Height() int32
 	QC() QuorumCertificate
+	//Sets block QC to concrete value. Use this method with big care, since it mutates block's field that is used in hash calculation.
+	//Obviously such a mutation must lead to blocks rehashing and rehashing would lead to update in all maps and this can be very dangerous.
 	SetQC(qc QuorumCertificate)
 	Signature() *crypto.SignatureAggregate
+	//Signature is not used in hash calculation, this set can be called freely
 	SetSignature(s *crypto.SignatureAggregate)
 	QRef() Header
 	GetMessage() *pb.Block
 	ToStorageProto() *pb.BlockS
 	Serialize() ([]byte, error)
+}
+
+type BlockBuilder interface {
+	SetHeader(header Header) BlockBuilder
+	SetQC(qc QuorumCertificate) BlockBuilder
+	SetTxs(txs *trie.FixedLengthHexKeyMerkleTrie) BlockBuilder
+	SetData(data []byte) BlockBuilder
+	Header() Header
+	QC() QuorumCertificate
+	Txs() *trie.FixedLengthHexKeyMerkleTrie
+	Data() []byte
+	Build() Block
 }
 
 type Header interface {
@@ -96,6 +113,16 @@ type Transaction interface {
 	Sign(key *crypto.PrivateKey)
 	Hash() common.Hash
 	DropSignature()
+}
+
+type Receipt interface {
+	Value() *big.Int
+	To() common.Address
+	From() common.Address
+	TxIndex() int32
+	TxHash() common.Hash
+	FromValue() *big.Int
+	ToValue() *big.Int
 }
 
 type Iterator interface {
