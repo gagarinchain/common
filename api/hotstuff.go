@@ -23,6 +23,7 @@ type Pacer interface {
 	EventNotifier
 	ProposerForHeight
 	GetCurrentView() int32
+	GetCurrentEpoch() int32
 	GetCurrent() *common.Peer
 	GetNext() *common.Peer
 }

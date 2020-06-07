@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/gagarinchain/common/eth/common"
+	pb "github.com/gagarinchain/common/protobuff"
 	"github.com/gagarinchain/common/trie/sparse"
 	"math/big"
 )
@@ -15,6 +16,8 @@ type Account interface {
 	SetOrigin(origin common.Address)
 	AddVoters(from common.Address)
 	IncrementNonce()
+	Serialize() []byte
+	ToStorageProto() *pb.Account
 }
 
 //record stores information about version tree structure and provides base account processing logic
@@ -37,4 +40,14 @@ type Record interface {
 	ApplyTransaction(t Transaction) (r []Receipt, err error)
 	Update(address common.Address, account Account) error
 	Put(address common.Address, account Account)
+}
+
+type Receipt interface {
+	Value() *big.Int
+	To() common.Address
+	From() common.Address
+	TxIndex() int32
+	TxHash() common.Hash
+	FromValue() *big.Int
+	ToValue() *big.Int
 }

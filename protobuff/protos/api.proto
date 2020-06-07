@@ -1,0 +1,220 @@
+syntax = "proto3";
+package gagarin.network.api;
+
+import "storage.proto";
+import "message.proto";
+
+option go_package = "pb";
+
+service OnReceiveProposal {
+    rpc BeforeProposedBlockAdded (BeforeProposedBlockAddedRequest) returns (BeforeProposedBlockAddedResponse);
+    rpc AfterProposedBlockAdded (AfterProposedBlockAddedRequest) returns (AfterProposedBlockAddedResponse);
+    rpc BeforeVoted (BeforeVotedRequest) returns (BeforeVotedResponse);
+    rpc AfterVoted (AfterVotedRequest) returns (AfterVotedResponse);
+}
+
+service OnProposal {
+    rpc OnProposal (OnProposalRequest) returns (OnProposalResponse);
+}
+service OnVoteReceived {
+    rpc OnVoteReceived (OnVoteReceivedRequest) returns (OnVoteReceivedResponse);
+    rpc OnQCFinished (OnQCFinishedRequest) returns (OnQCFinishedResponse);
+}
+service OnNewBlockCreated {
+    rpc OnNewBlockCreated (OnNewBlockCreatedRequest) returns (OnNewBlockCreatedResponse);
+}
+service OnBlockCommit {
+    rpc OnBlockCommit (OnBlockCommitRequest) returns (OnBlockCommitResponse);
+}
+service OnNextView {
+    rpc OnNextView (OnNextViewRequest) returns (OnNextViewResponse);
+}
+service OnNextEpoch {
+    rpc OnNextEpoch (OnNextEpochRequest) returns (OnNextEpochResponse);
+}
+
+message OnBlockCommitRequest {
+    gagarin.network.storage.BlockS block = 1;
+    repeated gagarin.network.storage.BlockS orphans = 2;
+}
+message OnBlockCommitResponse {
+}
+message BeforeProposedBlockAddedRequest {
+    gagarin.network.core.ProposalPayload proposal = 1;
+}
+message BeforeProposedBlockAddedResponse {
+    gagarin.network.storage.BlockS block = 1;
+}
+message AfterProposedBlockAddedRequest {
+    gagarin.network.core.ProposalPayload proposal = 1;
+    repeated gagarin.network.storage.Receipt receipts = 2;
+}
+message AfterProposedBlockAddedResponse {
+}
+message BeforeVotedRequest {
+    gagarin.network.core.VotePayload vote = 1;
+}
+message BeforeVotedResponse {
+    gagarin.network.core.VotePayload vote = 1;
+}
+message AfterVotedRequest {
+    gagarin.network.core.VotePayload vote = 1;
+}
+message AfterVotedResponse {
+}
+message OnProposalRequest {
+    gagarin.network.core.ProposalPayload proposal = 1;
+}
+message OnProposalResponse {
+}
+message OnVoteReceivedRequest {
+    gagarin.network.core.VotePayload vote = 1;
+}
+message OnVoteReceivedResponse {
+}
+message OnQCFinishedRequest {
+    gagarin.network.storage.QuorumCertificateS qc = 1;
+}
+message OnQCFinishedResponse {
+    gagarin.network.storage.QuorumCertificateS qc = 1;
+}
+message OnNextViewRequest {
+    int32 newView = 1;
+}
+message OnNextViewResponse {
+}
+
+message OnNextEpochRequest {
+    int32 newEpoch = 1;
+}
+message OnNextEpochResponse {
+}
+
+message OnNewBlockCreatedRequest  {
+    gagarin.network.core.ProposalPayload payload = 1;
+    repeated gagarin.network.storage.Receipt receipts = 2;
+}
+message OnNewBlockCreatedResponse  {
+    gagarin.network.storage.BlockS receipts = 1;
+}
+
+service CommonService {
+    rpc GetBlockByHash (GetBlockByHashRequest) returns (GetBlockByHashResponse);
+    rpc GetBlocksByHeight (GetBlockByHeightRequest) returns (GetBlockByHeightResponse);
+    rpc GetFork (GetForkRequest) returns (GetForkResponse);
+    rpc Contains (ContainsRequest) returns (ContainsResponse);
+    rpc GetThreeChain (GetThreeChainRequest) returns (GetThreeChainResponse);
+    rpc GetHead (GetHeadRequest) returns (GetHeadResponse);
+    rpc GetTopHeight (GetTopHeightRequest) returns (GetTopHeightResponse);
+    rpc GetTopHeightBlock (GetTopHeightBlockRequest) returns (GetTopHeightBlockResponse);
+    rpc GetGenesisBlock (GetGenesisBlockRequest) returns (GetGenesisBlockResponse);
+    rpc IsSibling (IsSiblingRequest) returns (IsSiblingResponse);
+    rpc GetAccount(GetAccountRequest) returns (GetAccountResponse);
+    rpc GetTransaction(GetTransactionRequest) returns (GetTransactionResponse);
+    rpc GetProposerForView(GetProposerForViewRequest) returns (GetProposerForViewResponse);
+    rpc GetCommittee(GetCommitteeRequest) returns (GetCommitteeResponse);
+    rpc GetCurrentView(GetCurrentViewRequest) returns (GetCurrentViewResponse);
+    rpc GetCurrentEpoch(GetCurrentEpochRequest) returns (GetCurrentEpochResponse);
+    rpc GetTopCommittedBlock(GetTopCommittedBlockRequest) returns (GetTopCommittedBlockResponse);
+}
+
+message GetBlockByHashRequest {
+    bytes hash = 1;
+}
+message GetBlockByHashResponse {
+    gagarin.network.storage.BlockS block = 1;
+}
+message GetBlockByHeightRequest {
+    int32 height = 1;
+}
+message GetBlockByHeightResponse {
+    repeated gagarin.network.storage.BlockS blocks = 1;
+}
+message GetForkRequest {
+    int32 height = 1;
+    bytes headHash = 2;
+}
+message GetForkResponse {
+    repeated gagarin.network.storage.BlockS blocks = 1;
+}
+message ContainsRequest {
+    bytes hash = 1;
+}
+message ContainsResponse {
+    bool res = 1;
+}
+message GetThreeChainRequest {
+    bytes hash = 1;
+}
+message GetThreeChainResponse {
+    gagarin.network.storage.BlockS zero = 1;
+    gagarin.network.storage.BlockS one = 2;
+    gagarin.network.storage.BlockS two = 3;
+}
+message GetHeadRequest {
+}
+message GetHeadResponse {
+    gagarin.network.storage.BlockS block = 1;
+}
+message GetTopHeightRequest {
+}
+message GetTopHeightResponse {
+    int32 height = 1;
+}
+message GetTopHeightBlockRequest {
+}
+message GetTopHeightBlockResponse {
+    gagarin.network.storage.BlockS block = 1;
+}
+message GetGenesisBlockRequest {
+}
+message GetGenesisBlockResponse {
+    gagarin.network.storage.BlockS block = 1;
+}
+message IsSiblingRequest {
+    bytes siblingHash = 1;
+    bytes ancestorHash = 2;
+}
+message IsSiblingResponse {
+    bool res = 1;
+}
+message GetAccountRequest {
+    bytes address = 1;
+    bytes hash = 2;
+}
+message GetAccountResponse {
+    gagarin.network.storage.Account account = 1;
+}
+message GetTransactionRequest {
+    bytes hash = 1;
+}
+message GetTransactionResponse {
+    gagarin.network.storage.TransactionS tx = 1;
+}
+message GetProposerForViewRequest {
+    int32 view = 1;
+}
+message GetProposerForViewResponse {
+    gagarin.network.storage.Peer peer = 1;
+}
+message GetCommitteeRequest {
+}
+message GetCommitteeResponse {
+    repeated gagarin.network.storage.Peer peer = 1;
+}
+
+message GetCurrentViewRequest {
+}
+message GetCurrentViewResponse {
+    int32 view = 1;
+}
+message GetCurrentEpochRequest {
+}
+message GetCurrentEpochResponse {
+    int32 epoch = 1;
+}
+message GetTopCommittedBlockRequest {
+}
+message GetTopCommittedBlockResponse {
+    gagarin.network.storage.BlockS block = 1;
+}

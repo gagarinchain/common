@@ -16,21 +16,21 @@ type Blockchain interface {
 	GetFork(height int32, headHash common.Hash) (res []Block)
 	Contains(hash common.Hash) bool
 	GetThreeChain(twoHash common.Hash) (zero Block, one Block, two Block)
-	OnCommit(b Block) (toCommit []Block, orphans *treemap.Map, err error)
 	GetHead() Block
 	GetHeadRecord() Record
 	GetTopHeight() int32
 	GetTopHeightBlocks() []Block
-	AddBlock(block Block) ([]Receipt, error)
-	RemoveBlock(block Block) error
 	GetGenesisBlock() Block
 	GetGenesisCert() QuorumCertificate
 	IsSibling(sibling Header, ancestor Header) bool
+	OnCommit(b Block) (toCommit []Block, orphans *treemap.Map, err error)
+	GetTopCommittedBlock() Block
+	GetGenesisBlockSignedHash(key *crypto.PrivateKey) *crypto.Signature
+	AddBlock(block Block) ([]Receipt, error)
+	RemoveBlock(block Block) error
 	NewBlock(parent Block, qc QuorumCertificate, data []byte) Block
 	PadEmptyBlock(head Block, qc QuorumCertificate) Block
-	GetGenesisBlockSignedHash(key *crypto.PrivateKey) *crypto.Signature
 	ValidateGenesisBlockSignature(signature *crypto.Signature, address common.Address) bool
-	GetTopCommittedBlock() Block
 	UpdateGenesisBlockQC(certificate QuorumCertificate)
 	SetProposerGetter(proposerGetter ProposerForHeight)
 }
@@ -113,16 +113,6 @@ type Transaction interface {
 	Sign(key *crypto.PrivateKey)
 	Hash() common.Hash
 	DropSignature()
-}
-
-type Receipt interface {
-	Value() *big.Int
-	To() common.Address
-	From() common.Address
-	TxIndex() int32
-	TxHash() common.Hash
-	FromValue() *big.Int
-	ToValue() *big.Int
 }
 
 type Iterator interface {

@@ -16,5 +16,6 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.5.1
 	golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37
+	google.golang.org/grpc v1.20.1
 	gopkg.in/yaml.v2 v2.3.0
 )

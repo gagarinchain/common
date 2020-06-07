@@ -1,4 +1,6 @@
 syntax = "proto3";
+package gagarin.network.core;
+
 option go_package = "pb";
 
 import "google/protobuf/any.proto";

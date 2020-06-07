@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"github.com/gagarinchain/common/eth/common"
 	"github.com/gagarinchain/common/eth/crypto"
+	pb "github.com/gagarinchain/common/protobuff"
 	"github.com/libp2p/go-libp2p-core/peer"
 )
 
@@ -57,6 +58,23 @@ func (p *Peer) GetPeerInfo() *peer.AddrInfo {
 
 func (p *Peer) PublicKey() *crypto.PublicKey {
 	return p.publicKey
+}
+
+func (p *Peer) ToStorageProto() *pb.Peer {
+	id, err := p.peerInfo.ID.Marshal()
+	if err != nil {
+		log.Error(err)
+	}
+	var addrs []string
+	for _, addr := range p.peerInfo.Addrs {
+		addrs = append(addrs, addr.String())
+	}
+	return &pb.Peer{
+		Address:   p.address.Bytes(),
+		PublicKey: p.publicKey.Bytes(),
+		Id:        id,
+		Addresses: addrs,
+	}
 }
 
 func PeersToPubs(peers []*Peer) (pubs []*crypto.PublicKey) {

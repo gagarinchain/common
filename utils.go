@@ -10,9 +10,7 @@ import (
 	p2pcrypto "github.com/libp2p/go-libp2p-core/crypto"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/op/go-logging"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
-	"os"
 	"strconv"
 )
 
@@ -20,14 +18,17 @@ var log = logging.MustGetLogger("hotstuff")
 
 type Settings struct {
 	Hotstuff struct {
-		N          int `yaml:"N"`
-		Delta      int `yaml:"Delta"`
-		BlockDelta int `yaml:"BlockDelta"`
+		CommitteeSize int    `yaml:"CommitteeSize"`
+		Me            int    `yaml:"Me"`
+		Delta         int    `yaml:"Delta"`
+		BlockDelta    int    `yaml:"BlockDelta"`
+		SeedPath      string `yaml:"SeedPath"`
 	} `yaml:"Hotstuff"`
 	Network struct {
-		MinPeerThreshold  int `yaml:"MinPeerThreshold"`
-		ReconnectPeriod   int `yaml:"ReconnectPeriod"`
-		ConnectionTimeout int `yaml:"ConnectionTimeout"`
+		ExtAddr           string `yaml:"ExtAddr"`
+		MinPeerThreshold  int    `yaml:"MinPeerThreshold"`
+		ReconnectPeriod   int    `yaml:"ReconnectPeriod"`
+		ConnectionTimeout int    `yaml:"ConnectionTimeout"`
 	} `yaml:"Network"`
 	Storage struct {
 		Dir string `yaml:"Dir"`
@@ -35,6 +36,17 @@ type Settings struct {
 	Static struct {
 		Dir string `yaml:"Dir"`
 	} `yaml:"Static"`
+	Plugins struct {
+		ConfigPath string `yaml:"ConfigPath"`
+	} `yaml:"Plugins"`
+	Rpc struct {
+		Use                  bool   `yaml:"Use"`
+		Address              string `yaml:"Address"`
+		MaxConcurrentStreams uint32 `yaml:"MaxConcurrentStreams"`
+	} `yaml:"Rpc"`
+	Log struct {
+		Level string `yaml:"Level"`
+	} `yaml:"Log"`
 }
 
 func GenerateIdentities() {
@@ -92,44 +104,4 @@ func GenerateIdentities() {
 		panic(err)
 	}
 
-}
-
-func ReadSettings() (s *Settings) {
-	settingsPath, found := os.LookupEnv("GN_SETTINGS")
-	if !found {
-		settingsPath = "static/settings.yaml"
-	}
-
-	file, e := os.Open(settingsPath)
-	if e != nil {
-		log.Error("Can't load settings, using default", e)
-	} else {
-		defer file.Close()
-		s = &Settings{}
-		byteValue, _ := ioutil.ReadAll(file)
-		if err := yaml.Unmarshal(byteValue, s); err != nil {
-			log.Error("Can't load settings, using default", e)
-		}
-	}
-	if s == nil {
-		s = &Settings{
-			Hotstuff: struct {
-				N          int `yaml:"N"`
-				Delta      int `yaml:"Delta"`
-				BlockDelta int `yaml:"BlockDelta"`
-			}{N: 10, Delta: 5000, BlockDelta: 10},
-			Network: struct {
-				MinPeerThreshold  int `yaml:"MinPeerThreshold"`
-				ReconnectPeriod   int `yaml:"ReconnectPeriod"`
-				ConnectionTimeout int `yaml:"ConnectionTimeout"`
-			}{MinPeerThreshold: 3, ReconnectPeriod: 10000, ConnectionTimeout: 3000},
-			Storage: struct {
-				Dir string `yaml:"Dir"`
-			}{Dir: os.TempDir()},
-			Static: struct {
-				Dir string `yaml:"Dir"`
-			}{Dir: "/Users/dabasov/Projects/gagarin/network/static"},
-		}
-	}
-	return
 }

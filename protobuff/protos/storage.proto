@@ -1,5 +1,6 @@
 syntax = "proto3";
 option go_package = "pb";
+package gagarin.network.storage;
 
 message QuorumCertificateS {
     BlockHeaderS header = 1;
@@ -72,4 +73,20 @@ message Snapshot {
 message Entry {
     bytes address = 1;
     bytes account = 2;
+}
+
+message Receipt {
+    bytes txHash = 1;
+    bytes from = 2;
+    bytes to = 3;
+    int64 value = 4;
+    int64 toValue = 5;
+    int64 fromValue = 6;
+}
+
+message Peer {
+    bytes address = 1;
+	bytes publicKey = 2;
+	bytes id = 3;
+	repeated string addresses = 4;
 }

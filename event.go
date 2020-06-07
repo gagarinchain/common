@@ -1,6 +1,9 @@
 package common
 
-import "context"
+import (
+	"context"
+	"io"
+)
 
 type EventPayload interface{}
 type EventType int
@@ -24,9 +27,17 @@ type Event struct {
 type EventBus interface {
 	FireEvent(event *Event)
 	Run(ctx context.Context)
+	Subscribe(id string, writer io.Writer)
+	Unsubscribe(id string)
 }
 
 type NullBus struct {
+}
+
+func (n *NullBus) Subscribe(id string, writer io.Writer) {
+}
+
+func (n *NullBus) Unsubscribe(id string) {
 }
 
 func (n *NullBus) FireEvent(event *Event) {
