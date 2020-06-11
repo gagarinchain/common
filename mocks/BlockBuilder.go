@@ -14,6 +14,22 @@ type BlockBuilder struct {
 	mock.Mock
 }
 
+// AddTx provides a mock function with given fields: tx
+func (_m *BlockBuilder) AddTx(tx api.Transaction) api.BlockBuilder {
+	ret := _m.Called(tx)
+
+	var r0 api.BlockBuilder
+	if rf, ok := ret.Get(0).(func(api.Transaction) api.BlockBuilder); ok {
+		r0 = rf(tx)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(api.BlockBuilder)
+		}
+	}
+
+	return r0
+}
+
 // Build provides a mock function with given fields:
 func (_m *BlockBuilder) Build() api.Block {
 	ret := _m.Called()

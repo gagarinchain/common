@@ -3,7 +3,8 @@
 package mocks
 
 import (
-	api "github.com/gagarinchain/common/api"
+	context "context"
+
 	mock "github.com/stretchr/testify/mock"
 )
 
@@ -12,13 +13,13 @@ type OnNextView struct {
 	mock.Mock
 }
 
-// OnNewView provides a mock function with given fields: pacer, bc, newView
-func (_m *OnNextView) OnNewView(pacer api.Pacer, bc api.Blockchain, newView int32) error {
-	ret := _m.Called(pacer, bc, newView)
+// OnNewView provides a mock function with given fields: ctx, newView
+func (_m *OnNextView) OnNewView(ctx context.Context, newView int32) error {
+	ret := _m.Called(ctx, newView)
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(api.Pacer, api.Blockchain, int32) error); ok {
-		r0 = rf(pacer, bc, newView)
+	if rf, ok := ret.Get(0).(func(context.Context, int32) error); ok {
+		r0 = rf(ctx, newView)
 	} else {
 		r0 = ret.Error(0)
 	}

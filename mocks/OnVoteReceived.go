@@ -3,7 +3,10 @@
 package mocks
 
 import (
+	context "context"
+
 	api "github.com/gagarinchain/common/api"
+
 	mock "github.com/stretchr/testify/mock"
 )
 
@@ -12,13 +15,13 @@ type OnVoteReceived struct {
 	mock.Mock
 }
 
-// OnQCFinished provides a mock function with given fields: pacer, bc, qc
-func (_m *OnVoteReceived) OnQCFinished(pacer api.Pacer, bc api.Blockchain, qc api.QuorumCertificate) error {
-	ret := _m.Called(pacer, bc, qc)
+// OnQCFinished provides a mock function with given fields: ctx, qc
+func (_m *OnVoteReceived) OnQCFinished(ctx context.Context, qc api.QuorumCertificate) error {
+	ret := _m.Called(ctx, qc)
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(api.Pacer, api.Blockchain, api.QuorumCertificate) error); ok {
-		r0 = rf(pacer, bc, qc)
+	if rf, ok := ret.Get(0).(func(context.Context, api.QuorumCertificate) error); ok {
+		r0 = rf(ctx, qc)
 	} else {
 		r0 = ret.Error(0)
 	}
@@ -26,13 +29,13 @@ func (_m *OnVoteReceived) OnQCFinished(pacer api.Pacer, bc api.Blockchain, qc ap
 	return r0
 }
 
-// OnVoteReceived provides a mock function with given fields: pacer, bc, vote
-func (_m *OnVoteReceived) OnVoteReceived(pacer api.Pacer, bc api.Blockchain, vote api.Vote) error {
-	ret := _m.Called(pacer, bc, vote)
+// OnVoteReceived provides a mock function with given fields: ctx, vote
+func (_m *OnVoteReceived) OnVoteReceived(ctx context.Context, vote api.Vote) error {
+	ret := _m.Called(ctx, vote)
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(api.Pacer, api.Blockchain, api.Vote) error); ok {
-		r0 = rf(pacer, bc, vote)
+	if rf, ok := ret.Get(0).(func(context.Context, api.Vote) error); ok {
+		r0 = rf(ctx, vote)
 	} else {
 		r0 = ret.Error(0)
 	}

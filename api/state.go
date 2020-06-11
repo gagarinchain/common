@@ -50,4 +50,5 @@ type Receipt interface {
 	TxHash() common.Hash
 	FromValue() *big.Int
 	ToValue() *big.Int
+	ToStorageProto() *pb.Receipt
 }

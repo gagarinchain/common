@@ -43,7 +43,7 @@ message BeforeProposedBlockAddedRequest {
     gagarin.network.core.ProposalPayload proposal = 1;
 }
 message BeforeProposedBlockAddedResponse {
-    gagarin.network.storage.BlockS block = 1;
+    gagarin.network.core.ProposalPayload proposal = 1;
 }
 message AfterProposedBlockAddedRequest {
     gagarin.network.core.ProposalPayload proposal = 1;
@@ -91,11 +91,11 @@ message OnNextEpochResponse {
 }
 
 message OnNewBlockCreatedRequest  {
-    gagarin.network.core.ProposalPayload payload = 1;
+    gagarin.network.storage.BlockS block = 1;
     repeated gagarin.network.storage.Receipt receipts = 2;
 }
 message OnNewBlockCreatedResponse  {
-    gagarin.network.storage.BlockS receipts = 1;
+    gagarin.network.storage.BlockS block = 1;
 }
 
 service CommonService {

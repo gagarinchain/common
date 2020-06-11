@@ -37,7 +37,8 @@ type Settings struct {
 		Dir string `yaml:"Dir"`
 	} `yaml:"Static"`
 	Plugins struct {
-		ConfigPath string `yaml:"ConfigPath"`
+		ConfigPath string   `yaml:"ConfigPath"`
+		Interfaces []string `yaml:"Interfaces"`
 	} `yaml:"Plugins"`
 	Rpc struct {
 		Use                  bool   `yaml:"Use"`

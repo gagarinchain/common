@@ -60,6 +60,7 @@ type BlockBuilder interface {
 	SetHeader(header Header) BlockBuilder
 	SetQC(qc QuorumCertificate) BlockBuilder
 	SetTxs(txs *trie.FixedLengthHexKeyMerkleTrie) BlockBuilder
+	AddTx(tx Transaction) BlockBuilder
 	SetData(data []byte) BlockBuilder
 	Header() Header
 	QC() QuorumCertificate

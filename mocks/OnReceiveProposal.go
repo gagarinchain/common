@@ -3,7 +3,10 @@
 package mocks
 
 import (
+	context "context"
+
 	api "github.com/gagarinchain/common/api"
+
 	mock "github.com/stretchr/testify/mock"
 )
 
@@ -12,13 +15,13 @@ type OnReceiveProposal struct {
 	mock.Mock
 }
 
-// AfterProposedBlockAdded provides a mock function with given fields: pacer, bc, proposal, receipts
-func (_m *OnReceiveProposal) AfterProposedBlockAdded(pacer api.Pacer, bc api.Blockchain, proposal api.Proposal, receipts []api.Receipt) error {
-	ret := _m.Called(pacer, bc, proposal, receipts)
+// AfterProposedBlockAdded provides a mock function with given fields: ctx, proposal, receipts
+func (_m *OnReceiveProposal) AfterProposedBlockAdded(ctx context.Context, proposal api.Proposal, receipts []api.Receipt) error {
+	ret := _m.Called(ctx, proposal, receipts)
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(api.Pacer, api.Blockchain, api.Proposal, []api.Receipt) error); ok {
-		r0 = rf(pacer, bc, proposal, receipts)
+	if rf, ok := ret.Get(0).(func(context.Context, api.Proposal, []api.Receipt) error); ok {
+		r0 = rf(ctx, proposal, receipts)
 	} else {
 		r0 = ret.Error(0)
 	}
@@ -26,13 +29,13 @@ func (_m *OnReceiveProposal) AfterProposedBlockAdded(pacer api.Pacer, bc api.Blo
 	return r0
 }
 
-// AfterVoted provides a mock function with given fields: pacer, bc, vote
-func (_m *OnReceiveProposal) AfterVoted(pacer api.Pacer, bc api.Blockchain, vote api.Vote) error {
-	ret := _m.Called(pacer, bc, vote)
+// AfterVoted provides a mock function with given fields: ctx, vote
+func (_m *OnReceiveProposal) AfterVoted(ctx context.Context, vote api.Vote) error {
+	ret := _m.Called(ctx, vote)
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(api.Pacer, api.Blockchain, api.Vote) error); ok {
-		r0 = rf(pacer, bc, vote)
+	if rf, ok := ret.Get(0).(func(context.Context, api.Vote) error); ok {
+		r0 = rf(ctx, vote)
 	} else {
 		r0 = ret.Error(0)
 	}
@@ -40,13 +43,13 @@ func (_m *OnReceiveProposal) AfterVoted(pacer api.Pacer, bc api.Blockchain, vote
 	return r0
 }
 
-// BeforeProposedBlockAdded provides a mock function with given fields: pacer, bc, proposal
-func (_m *OnReceiveProposal) BeforeProposedBlockAdded(pacer api.Pacer, bc api.Blockchain, proposal api.Proposal) error {
-	ret := _m.Called(pacer, bc, proposal)
+// BeforeProposedBlockAdded provides a mock function with given fields: ctx, proposal
+func (_m *OnReceiveProposal) BeforeProposedBlockAdded(ctx context.Context, proposal api.Proposal) error {
+	ret := _m.Called(ctx, proposal)
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(api.Pacer, api.Blockchain, api.Proposal) error); ok {
-		r0 = rf(pacer, bc, proposal)
+	if rf, ok := ret.Get(0).(func(context.Context, api.Proposal) error); ok {
+		r0 = rf(ctx, proposal)
 	} else {
 		r0 = ret.Error(0)
 	}
@@ -54,13 +57,13 @@ func (_m *OnReceiveProposal) BeforeProposedBlockAdded(pacer api.Pacer, bc api.Bl
 	return r0
 }
 
-// BeforeVoted provides a mock function with given fields: pacer, bc, vote
-func (_m *OnReceiveProposal) BeforeVoted(pacer api.Pacer, bc api.Blockchain, vote api.Vote) error {
-	ret := _m.Called(pacer, bc, vote)
+// BeforeVoted provides a mock function with given fields: ctx, vote
+func (_m *OnReceiveProposal) BeforeVoted(ctx context.Context, vote api.Vote) error {
+	ret := _m.Called(ctx, vote)
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(api.Pacer, api.Blockchain, api.Vote) error); ok {
-		r0 = rf(pacer, bc, vote)
+	if rf, ok := ret.Get(0).(func(context.Context, api.Vote) error); ok {
+		r0 = rf(ctx, vote)
 	} else {
 		r0 = ret.Error(0)
 	}

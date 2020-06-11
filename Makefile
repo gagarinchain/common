@@ -15,5 +15,7 @@ services:
         -I${GOPATH}/src \
         --go_out=plugins=grpc:api \
         api/api.proto
+
+.PHONY: mocks
 mocks:
-	cd /usr/local/bin/mockery mockery --all
+	/usr/local/bin/mockery --all

@@ -3,7 +3,10 @@
 package mocks
 
 import (
+	context "context"
+
 	api "github.com/gagarinchain/common/api"
+
 	mock "github.com/stretchr/testify/mock"
 )
 
@@ -12,16 +15,25 @@ type OnNewBlockCreated struct {
 	mock.Mock
 }
 
-// OnBlockCreated provides a mock function with given fields: bc, builder, receipts
-func (_m *OnNewBlockCreated) OnBlockCreated(bc api.Blockchain, builder api.BlockBuilder, receipts []api.Receipt) error {
-	ret := _m.Called(bc, builder, receipts)
+// OnNewBlockCreated provides a mock function with given fields: ctx, builder, receipts
+func (_m *OnNewBlockCreated) OnNewBlockCreated(ctx context.Context, builder api.BlockBuilder, receipts []api.Receipt) (api.Block, error) {
+	ret := _m.Called(ctx, builder, receipts)
 
-	var r0 error
-	if rf, ok := ret.Get(0).(func(api.Blockchain, api.BlockBuilder, []api.Receipt) error); ok {
-		r0 = rf(bc, builder, receipts)
+	var r0 api.Block
+	if rf, ok := ret.Get(0).(func(context.Context, api.BlockBuilder, []api.Receipt) api.Block); ok {
+		r0 = rf(ctx, builder, receipts)
 	} else {
-		r0 = ret.Error(0)
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(api.Block)
+		}
 	}
 
-	return r0
+	var r1 error
+	if rf, ok := ret.Get(1).(func(context.Context, api.BlockBuilder, []api.Receipt) error); ok {
+		r1 = rf(ctx, builder, receipts)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
 }
