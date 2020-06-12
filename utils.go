@@ -36,18 +36,19 @@ type Settings struct {
 	Static struct {
 		Dir string `yaml:"Dir"`
 	} `yaml:"Static"`
-	Plugins struct {
-		ConfigPath string   `yaml:"ConfigPath"`
-		Interfaces []string `yaml:"Interfaces"`
-	} `yaml:"Plugins"`
 	Rpc struct {
-		Use                  bool   `yaml:"Use"`
 		Address              string `yaml:"Address"`
 		MaxConcurrentStreams uint32 `yaml:"MaxConcurrentStreams"`
 	} `yaml:"Rpc"`
 	Log struct {
 		Level string `yaml:"Level"`
 	} `yaml:"Log"`
+	Plugins Plugin `yaml:"Plugins"`
+}
+
+type Plugin struct {
+	Address    string   `yaml:"Address"`
+	Interfaces []string `yaml:"Interfaces"`
 }
 
 func GenerateIdentities() {
