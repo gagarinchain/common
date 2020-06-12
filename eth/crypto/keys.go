@@ -61,6 +61,9 @@ func (s *Signature) Pub() *g1pubs.PublicKey {
 }
 
 func (s *Signature) ToProto() *pb.Signature {
+	if s == nil {
+		return nil
+	}
 	if s.IsEmpty() {
 		return &pb.Signature{}
 	}
@@ -73,6 +76,9 @@ func (s *Signature) ToProto() *pb.Signature {
 }
 
 func (s *Signature) ToStorageProto() *pb.SignatureS {
+	if s == nil {
+		return nil
+	}
 	if s.IsEmpty() {
 		return &pb.SignatureS{}
 	}
