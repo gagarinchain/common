@@ -20,7 +20,7 @@ func NewClient(address string) *Client {
 	var opts []grpc.DialOption
 	opts = append(opts, grpc.WithInsecure())
 
-	opts = append(opts, grpc.WithBlock())
+	//opts = append(opts, grpc.WithBlock())
 	conn, err := grpc.Dial(address, opts...)
 	if err != nil {
 		log.Fatalf("fail to dial: %v", err)
