@@ -44,6 +44,8 @@ type Block interface {
 	Data() []byte
 	Height() int32
 	QC() QuorumCertificate
+	Receipts() []Receipt
+	SetReceipts(receipts []Receipt)
 	//Sets block QC to concrete value. Use this method with big care, since it mutates block's field that is used in hash calculation.
 	//Obviously such a mutation must lead to blocks rehashing and rehashing would lead to update in all maps and this can be very dangerous.
 	SetQC(qc QuorumCertificate)

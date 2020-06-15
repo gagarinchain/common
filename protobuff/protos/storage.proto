@@ -13,6 +13,7 @@ message BlockS {
     SignatureAggregateS signatureAggregate = 3;
     BlockDataS data = 4;
     repeated TransactionS txs = 5;
+    repeated Receipt receipts = 6;
 }
 
 message BlockHeaderS {
