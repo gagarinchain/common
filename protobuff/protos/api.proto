@@ -34,65 +34,76 @@ service OnNextEpoch {
 }
 
 message OnBlockCommitRequest {
-    gagarin.network.storage.BlockS block = 1;
-    repeated gagarin.network.storage.BlockS orphans = 2;
+    gagarin.network.storage.Peer me = 1;
+    gagarin.network.storage.BlockS block = 2;
+    repeated gagarin.network.storage.BlockS orphans = 3;
 }
 message OnBlockCommitResponse {
 }
 message BeforeProposedBlockAddedRequest {
-    gagarin.network.core.ProposalPayload proposal = 1;
+    gagarin.network.storage.Peer me = 1;
+    gagarin.network.core.ProposalPayload proposal = 2;
 }
 message BeforeProposedBlockAddedResponse {
     gagarin.network.core.ProposalPayload proposal = 1;
 }
 message AfterProposedBlockAddedRequest {
-    gagarin.network.core.ProposalPayload proposal = 1;
-    repeated gagarin.network.storage.Receipt receipts = 2;
+    gagarin.network.storage.Peer me = 1;
+    gagarin.network.core.ProposalPayload proposal = 2;
+    repeated gagarin.network.storage.Receipt receipts = 3;
 }
 message AfterProposedBlockAddedResponse {
 }
 message BeforeVotedRequest {
-    gagarin.network.core.VotePayload vote = 1;
+    gagarin.network.storage.Peer me = 1;
+    gagarin.network.core.VotePayload vote = 2;
 }
 message BeforeVotedResponse {
     gagarin.network.core.VotePayload vote = 1;
 }
 message AfterVotedRequest {
-    gagarin.network.core.VotePayload vote = 1;
+    gagarin.network.storage.Peer me = 1;
+    gagarin.network.core.VotePayload vote = 2;
 }
 message AfterVotedResponse {
 }
 message OnProposalRequest {
-    gagarin.network.core.ProposalPayload proposal = 1;
+    gagarin.network.storage.Peer me = 1;
+    gagarin.network.core.ProposalPayload proposal = 2;
 }
 message OnProposalResponse {
 }
 message OnVoteReceivedRequest {
-    gagarin.network.core.VotePayload vote = 1;
+    gagarin.network.storage.Peer me = 1;
+    gagarin.network.core.VotePayload vote = 2;
 }
 message OnVoteReceivedResponse {
 }
 message OnQCFinishedRequest {
-    gagarin.network.storage.QuorumCertificateS qc = 1;
+    gagarin.network.storage.Peer me = 1;
+    gagarin.network.storage.QuorumCertificateS qc = 2;
 }
 message OnQCFinishedResponse {
-    gagarin.network.storage.QuorumCertificateS qc = 1;
+    gagarin.network.storage.QuorumCertificateS qc = 2;
 }
 message OnNextViewRequest {
-    int32 newView = 1;
+    gagarin.network.storage.Peer me = 1;
+    int32 newView = 2;
 }
 message OnNextViewResponse {
 }
 
 message OnNextEpochRequest {
-    int32 newEpoch = 1;
+    gagarin.network.storage.Peer me = 1;
+    int32 newEpoch = 2;
 }
 message OnNextEpochResponse {
 }
 
 message OnNewBlockCreatedRequest  {
-    gagarin.network.storage.BlockS block = 1;
-    repeated gagarin.network.storage.Receipt receipts = 2;
+    gagarin.network.storage.Peer me = 1;
+    gagarin.network.storage.BlockS block = 2;
+    repeated gagarin.network.storage.Receipt receipts = 3;
 }
 message OnNewBlockCreatedResponse  {
     gagarin.network.storage.BlockS block = 1;
