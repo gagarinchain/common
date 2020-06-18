@@ -5,7 +5,6 @@ import (
 	"github.com/gagarinchain/common/eth/common"
 	"github.com/gagarinchain/common/eth/crypto"
 	pb "github.com/gagarinchain/common/protobuff"
-	"github.com/gagarinchain/common/trie"
 	"math/big"
 	"time"
 )
@@ -61,12 +60,12 @@ type Block interface {
 type BlockBuilder interface {
 	SetHeader(header Header) BlockBuilder
 	SetQC(qc QuorumCertificate) BlockBuilder
-	SetTxs(txs *trie.FixedLengthHexKeyMerkleTrie) BlockBuilder
+	SetTxs(txs []Transaction) BlockBuilder
 	AddTx(tx Transaction) BlockBuilder
 	SetData(data []byte) BlockBuilder
 	Header() Header
 	QC() QuorumCertificate
-	Txs() *trie.FixedLengthHexKeyMerkleTrie
+	Txs() []Transaction
 	Data() []byte
 	Build() Block
 }
