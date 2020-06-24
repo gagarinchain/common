@@ -26,22 +26,24 @@ func InitCommonClient(address string) *CommonClient {
 func (c *CommonClient) PollView(ctx context.Context) chan int32 {
 	timer := time.NewTimer(10 * time.Microsecond)
 	res := make(chan int32)
-	currentView := int32(0)
-	for {
-		select {
-		case <-timer.C:
-			if view, err := c.pbc.GetCurrentView(ctx, &pb.GetCurrentViewRequest{}); err != nil {
-				log.Error(err)
-			} else {
-				if currentView != view.View {
-					res <- view.View
+	go func() {
+		currentView := int32(0)
+		for {
+			select {
+			case <-timer.C:
+				if view, err := c.pbc.GetCurrentView(ctx, &pb.GetCurrentViewRequest{}); err != nil {
+					log.Error(err)
+				} else {
+					if currentView != view.View {
+						res <- view.View
+					}
 				}
+				timer = time.NewTimer(10 * time.Microsecond)
+			case <-ctx.Done():
+				close(res)
 			}
-			timer = time.NewTimer(10 * time.Microsecond)
-		case <-ctx.Done():
-			close(res)
+
 		}
-
-	}
-
+	}()
+	return res
 }
