@@ -23,19 +23,23 @@ func InitCommonClient(address string) *CommonClient {
 	}
 }
 
-func (c *CommonClient) GetView(ctx context.Context) {
-	timer := time.NewTimer(time.Second)
+func (c *CommonClient) PollView(ctx context.Context) chan int32 {
+	timer := time.NewTimer(10 * time.Microsecond)
+	res := make(chan int32)
+	currentView := int32(0)
 	for {
 		select {
 		case <-timer.C:
 			if view, err := c.pbc.GetCurrentView(ctx, &pb.GetCurrentViewRequest{}); err != nil {
 				log.Error(err)
 			} else {
-				log.Info(view)
+				if currentView != view.View {
+					res <- view.View
+				}
 			}
-			timer = time.NewTimer(time.Second)
+			timer = time.NewTimer(10 * time.Microsecond)
 		case <-ctx.Done():
-			c.Stop()
+			close(res)
 		}
 
 	}

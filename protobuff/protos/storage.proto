@@ -88,6 +88,5 @@ message Receipt {
 message Peer {
     bytes address = 1;
 	bytes publicKey = 2;
-	bytes id = 3;
-	repeated string addresses = 4;
+	bytes addrInfo = 3;
 }

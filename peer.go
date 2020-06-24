@@ -61,19 +61,29 @@ func (p *Peer) PublicKey() *crypto.PublicKey {
 }
 
 func (p *Peer) ToStorageProto() *pb.Peer {
-	id, err := p.peerInfo.ID.Marshal()
+	json, err := p.peerInfo.MarshalJSON()
 	if err != nil {
-		log.Error(err)
-	}
-	var addrs []string
-	for _, addr := range p.peerInfo.Addrs {
-		addrs = append(addrs, addr.String())
+		log.Error("Error while serializing peerInfo", err)
+		return nil
 	}
 	return &pb.Peer{
 		Address:   p.address.Bytes(),
 		PublicKey: p.publicKey.Bytes(),
-		Id:        id,
-		Addresses: addrs,
+		AddrInfo:  json,
+	}
+}
+
+func CreatePeerFromStorage(p *pb.Peer) *Peer {
+	info := &peer.AddrInfo{}
+	if err := info.UnmarshalJSON(p.AddrInfo); err != nil {
+		log.Error("Can't unmarshal addrinfo")
+		return nil
+	}
+	return &Peer{
+		address:    common.Address{},
+		publicKey:  crypto.FromBytes(p.PublicKey),
+		privateKey: nil,
+		peerInfo:   info,
 	}
 }
 

@@ -27,6 +27,31 @@ func (key *PublicKey) Bytes() []byte {
 	return b[:]
 }
 
+func FromBytes(b []byte) (key *PublicKey) {
+	var bytes [48]byte
+	copy(bytes[:], b[:48])
+
+	publicKey, err := g1pubs.DeserializePublicKey(bytes)
+	if err != nil {
+		log.Error(err)
+		return nil
+	}
+
+	return &PublicKey{
+		v: publicKey,
+	}
+}
+func PkFromBytes(b []byte) (key *PrivateKey) {
+	var bytes [32]byte
+	copy(bytes[:], b[:32])
+
+	pk := g1pubs.DeserializeSecretKey(bytes)
+
+	return &PrivateKey{
+		v: pk,
+	}
+}
+
 type PrivateKey struct {
 	v *g1pubs.SecretKey
 }
