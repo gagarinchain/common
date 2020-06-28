@@ -35,10 +35,11 @@ func (c *CommonClient) PollView(ctx context.Context) chan int32 {
 					log.Error(err)
 				} else {
 					if currentView != view.View {
+						currentView = view.View
 						res <- view.View
 					}
 				}
-				timer = time.NewTimer(10 * time.Microsecond)
+				timer = time.NewTimer(50 * time.Microsecond)
 			case <-ctx.Done():
 				close(res)
 			}

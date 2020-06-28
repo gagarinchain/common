@@ -80,7 +80,7 @@ func CreatePeerFromStorage(p *pb.Peer) *Peer {
 		return nil
 	}
 	return &Peer{
-		address:    common.Address{},
+		address:    common.BytesToAddress(p.Address),
 		publicKey:  crypto.FromBytes(p.PublicKey),
 		privateKey: nil,
 		peerInfo:   info,
