@@ -14,7 +14,7 @@ services:
 	protoc -Iprotobuff/protos/ \
         -I${GOPATH}/src \
         --go_out=plugins=grpc:api \
-        api/api.proto
+        protobuff/protos/api.proto
 
 .PHONY: mocks
 mocks:

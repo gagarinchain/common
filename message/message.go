@@ -3,7 +3,7 @@ package message
 import (
 	"github.com/gagarinchain/common"
 	"github.com/gagarinchain/common/protobuff"
-	"github.com/gogo/protobuf/proto"
+	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes/any"
 	"github.com/libp2p/go-libp2p-core/network"
 )

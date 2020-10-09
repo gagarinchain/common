@@ -127,6 +127,7 @@ service CommonService {
     rpc GetCurrentView(GetCurrentViewRequest) returns (GetCurrentViewResponse);
     rpc GetCurrentEpoch(GetCurrentEpochRequest) returns (GetCurrentEpochResponse);
     rpc GetTopCommittedBlock(GetTopCommittedBlockRequest) returns (GetTopCommittedBlockResponse);
+    rpc ExecuteTransaction(ExecuteTransactionRequest) returns (ExecuteTransactionResponse);
 }
 
 message GetBlockByHashRequest {
@@ -228,4 +229,9 @@ message GetTopCommittedBlockRequest {
 }
 message GetTopCommittedBlockResponse {
     gagarin.network.storage.BlockS block = 1;
+}
+message ExecuteTransactionRequest {
+    gagarin.network.storage.TransactionS tx = 1;
+}
+message ExecuteTransactionResponse {
 }
