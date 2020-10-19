@@ -125,7 +125,7 @@ type Iterator interface {
 type Type int
 
 const (
-	SettlementAddressHex    = "0x6522b1ac0c0c078f1fcc696b9cf72c59bb3624b7d2a9d82059b2f3832fd9973d"
+	SettlementAddressHex    = "0x9cf72c59bb3624b7d2a9d82059b2f3832fd9973d"
 	DefaultSettlementReward = 10 //probably this value should be set from config or via consensus or moved to different TX field
 	DefaultAgreementFee     = 2
 )

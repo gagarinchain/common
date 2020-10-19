@@ -6,6 +6,7 @@ import (
 	"github.com/gagarinchain/common/eth/crypto"
 	pb "github.com/gagarinchain/common/protobuff"
 	"github.com/libp2p/go-libp2p-core/peer"
+	"math/big"
 )
 
 type Peer struct {
@@ -93,4 +94,16 @@ func PeersToPubs(peers []*Peer) (pubs []*crypto.PublicKey) {
 	}
 
 	return pubs
+}
+
+func GetBitmap(src map[common.Address]*crypto.Signature, committee []common.Address) *big.Int {
+	bitmap := big.NewInt(0)
+	n := 0
+	for i, a := range committee {
+		if _, f := src[a]; f {
+			bitmap.SetBit(bitmap, i, 1)
+			n++
+		}
+	}
+	return bitmap
 }
