@@ -43,7 +43,7 @@ type Settings struct {
 	Log struct {
 		Level string `yaml:"Level"`
 	} `yaml:"Log"`
-	Plugins Plugin `yaml:"Plugins"`
+	Plugins []Plugin `yaml:"Plugins"`
 }
 
 type Plugin struct {

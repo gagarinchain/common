@@ -109,7 +109,8 @@ type Transaction interface {
 	Fee() *big.Int
 	SetFrom(from common.Address)
 	CreateProof(pk *crypto.PrivateKey) (e error)
-	RecoverProver() (aggregate *crypto.SignatureAggregate, e error)
+	RecoverProof() (aggregate *crypto.SignatureAggregate, e error)
+	RecoverProvers(committee []common.Address) (provers []common.Address, e error)
 	GetMessage() *pb.Transaction
 	ToStorageProto() *pb.TransactionS
 	Sign(key *crypto.PrivateKey)

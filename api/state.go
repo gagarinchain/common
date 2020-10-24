@@ -14,7 +14,6 @@ type Account interface {
 	Voters() []common.Address
 	Origin() common.Address
 	SetOrigin(origin common.Address)
-	AddVoters(from common.Address)
 	IncrementNonce()
 	Serialize() []byte
 	ToStorageProto() *pb.Account

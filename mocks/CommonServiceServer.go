@@ -37,6 +37,29 @@ func (_m *CommonServiceServer) Contains(_a0 context.Context, _a1 *pb.ContainsReq
 	return r0, r1
 }
 
+// ExecuteTransaction provides a mock function with given fields: _a0, _a1
+func (_m *CommonServiceServer) ExecuteTransaction(_a0 context.Context, _a1 *pb.ExecuteTransactionRequest) (*pb.ExecuteTransactionResponse, error) {
+	ret := _m.Called(_a0, _a1)
+
+	var r0 *pb.ExecuteTransactionResponse
+	if rf, ok := ret.Get(0).(func(context.Context, *pb.ExecuteTransactionRequest) *pb.ExecuteTransactionResponse); ok {
+		r0 = rf(_a0, _a1)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*pb.ExecuteTransactionResponse)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(context.Context, *pb.ExecuteTransactionRequest) error); ok {
+		r1 = rf(_a0, _a1)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // GetAccount provides a mock function with given fields: _a0, _a1
 func (_m *CommonServiceServer) GetAccount(_a0 context.Context, _a1 *pb.GetAccountRequest) (*pb.GetAccountResponse, error) {
 	ret := _m.Called(_a0, _a1)

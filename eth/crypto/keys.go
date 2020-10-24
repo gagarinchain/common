@@ -173,13 +173,18 @@ func (sa *SignatureAggregate) Bitmap() *big.Int {
 }
 
 func (sa *SignatureAggregate) IsValid(message []byte, committee []*PublicKey) (res bool) {
+	pubs := sa.KeysBitMapped(committee)
+	return VerifyAggregate(message, pubs, sa)
+}
+
+func (sa *SignatureAggregate) KeysBitMapped(committee []*PublicKey) []*PublicKey {
 	var pubs []*PublicKey
 	for i, p := range committee {
 		if sa.Bitmap().Bit(i) == 1 {
 			pubs = append(pubs, p)
 		}
 	}
-	return VerifyAggregate(message, pubs, sa)
+	return pubs
 }
 
 func AggregateFromProto(mes *pb.SignatureAggregate) *SignatureAggregate {

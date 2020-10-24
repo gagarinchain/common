@@ -19,11 +19,6 @@ type Account struct {
 	mock.Mock
 }
 
-// AddVoters provides a mock function with given fields: from
-func (_m *Account) AddVoters(from common.Address) {
-	_m.Called(from)
-}
-
 // Balance provides a mock function with given fields:
 func (_m *Account) Balance() *big.Int {
 	ret := _m.Called()

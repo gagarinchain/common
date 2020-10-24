@@ -115,6 +115,22 @@ func (_m *Block) QRef() api.Header {
 	return r0
 }
 
+// Receipts provides a mock function with given fields:
+func (_m *Block) Receipts() []api.Receipt {
+	ret := _m.Called()
+
+	var r0 []api.Receipt
+	if rf, ok := ret.Get(0).(func() []api.Receipt); ok {
+		r0 = rf()
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).([]api.Receipt)
+		}
+	}
+
+	return r0
+}
+
 // Serialize provides a mock function with given fields:
 func (_m *Block) Serialize() ([]byte, error) {
 	ret := _m.Called()
@@ -141,6 +157,11 @@ func (_m *Block) Serialize() ([]byte, error) {
 // SetQC provides a mock function with given fields: qc
 func (_m *Block) SetQC(qc api.QuorumCertificate) {
 	_m.Called(qc)
+}
+
+// SetReceipts provides a mock function with given fields: receipts
+func (_m *Block) SetReceipts(receipts []api.Receipt) {
+	_m.Called(receipts)
 }
 
 // SetSignature provides a mock function with given fields: s
