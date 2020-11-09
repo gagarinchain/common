@@ -1078,31 +1078,31 @@ func file_storage_proto_rawDescGZIP() []byte {
 
 var file_storage_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
 var file_storage_proto_goTypes = []interface{}{
-	(*QuorumCertificateS)(nil),  // 0: gagarin.network.storage.QuorumCertificateS
-	(*BlockS)(nil),              // 1: gagarin.network.storage.BlockS
-	(*BlockHeaderS)(nil),        // 2: gagarin.network.storage.BlockHeaderS
-	(*BlockDataS)(nil),          // 3: gagarin.network.storage.BlockDataS
-	(*TransactionS)(nil),        // 4: gagarin.network.storage.TransactionS
-	(*SignatureS)(nil),          // 5: gagarin.network.storage.SignatureS
-	(*SignatureAggregateS)(nil), // 6: gagarin.network.storage.SignatureAggregateS
-	(*Account)(nil),             // 7: gagarin.network.storage.Account
-	(*Record)(nil),              // 8: gagarin.network.storage.Record
-	(*Snapshot)(nil),            // 9: gagarin.network.storage.Snapshot
-	(*Entry)(nil),               // 10: gagarin.network.storage.Entry
-	(*Receipt)(nil),             // 11: gagarin.network.storage.Receipt
-	(*Peer)(nil),                // 12: gagarin.network.storage.Peer
+	(*QuorumCertificateS)(nil),  // 0: gagarin.bus.storage.QuorumCertificateS
+	(*BlockS)(nil),              // 1: gagarin.bus.storage.BlockS
+	(*BlockHeaderS)(nil),        // 2: gagarin.bus.storage.BlockHeaderS
+	(*BlockDataS)(nil),          // 3: gagarin.bus.storage.BlockDataS
+	(*TransactionS)(nil),        // 4: gagarin.bus.storage.TransactionS
+	(*SignatureS)(nil),          // 5: gagarin.bus.storage.SignatureS
+	(*SignatureAggregateS)(nil), // 6: gagarin.bus.storage.SignatureAggregateS
+	(*Account)(nil),             // 7: gagarin.bus.storage.Account
+	(*Record)(nil),              // 8: gagarin.bus.storage.Record
+	(*Snapshot)(nil),            // 9: gagarin.bus.storage.Snapshot
+	(*Entry)(nil),               // 10: gagarin.bus.storage.Entry
+	(*Receipt)(nil),             // 11: gagarin.bus.storage.Receipt
+	(*Peer)(nil),                // 12: gagarin.bus.storage.Peer
 }
 var file_storage_proto_depIdxs = []int32{
-	2,  // 0: gagarin.network.storage.QuorumCertificateS.header:type_name -> gagarin.network.storage.BlockHeaderS
-	6,  // 1: gagarin.network.storage.QuorumCertificateS.signatureAggregate:type_name -> gagarin.network.storage.SignatureAggregateS
-	2,  // 2: gagarin.network.storage.BlockS.header:type_name -> gagarin.network.storage.BlockHeaderS
-	0,  // 3: gagarin.network.storage.BlockS.cert:type_name -> gagarin.network.storage.QuorumCertificateS
-	6,  // 4: gagarin.network.storage.BlockS.signatureAggregate:type_name -> gagarin.network.storage.SignatureAggregateS
-	3,  // 5: gagarin.network.storage.BlockS.data:type_name -> gagarin.network.storage.BlockDataS
-	4,  // 6: gagarin.network.storage.BlockS.txs:type_name -> gagarin.network.storage.TransactionS
-	11, // 7: gagarin.network.storage.BlockS.receipts:type_name -> gagarin.network.storage.Receipt
-	5,  // 8: gagarin.network.storage.TransactionS.signature:type_name -> gagarin.network.storage.SignatureS
-	10, // 9: gagarin.network.storage.Snapshot.entries:type_name -> gagarin.network.storage.Entry
+	2,  // 0: gagarin.bus.storage.QuorumCertificateS.header:type_name -> gagarin.bus.storage.BlockHeaderS
+	6,  // 1: gagarin.bus.storage.QuorumCertificateS.signatureAggregate:type_name -> gagarin.bus.storage.SignatureAggregateS
+	2,  // 2: gagarin.bus.storage.BlockS.header:type_name -> gagarin.bus.storage.BlockHeaderS
+	0,  // 3: gagarin.bus.storage.BlockS.cert:type_name -> gagarin.bus.storage.QuorumCertificateS
+	6,  // 4: gagarin.bus.storage.BlockS.signatureAggregate:type_name -> gagarin.bus.storage.SignatureAggregateS
+	3,  // 5: gagarin.bus.storage.BlockS.data:type_name -> gagarin.bus.storage.BlockDataS
+	4,  // 6: gagarin.bus.storage.BlockS.txs:type_name -> gagarin.bus.storage.TransactionS
+	11, // 7: gagarin.bus.storage.BlockS.receipts:type_name -> gagarin.bus.storage.Receipt
+	5,  // 8: gagarin.bus.storage.TransactionS.signature:type_name -> gagarin.bus.storage.SignatureS
+	10, // 9: gagarin.bus.storage.Snapshot.entries:type_name -> gagarin.bus.storage.Entry
 	10, // [10:10] is the sub-list for method output_type
 	10, // [10:10] is the sub-list for method input_type
 	10, // [10:10] is the sub-list for extension type_name

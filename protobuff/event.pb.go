@@ -138,7 +138,7 @@ type Event struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Type    Event_EventType `protobuf:"varint,1,opt,name=type,proto3,enum=gagarin.network.event.Event_EventType" json:"type,omitempty"`
+	Type    Event_EventType `protobuf:"varint,1,opt,name=type,proto3,enum=gagarin.bus.event.Event_EventType" json:"type,omitempty"`
 	Id      []byte          `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
 	Payload *any.Any        `protobuf:"bytes,3,opt,name=payload,proto3" json:"payload,omitempty"`
 }
@@ -201,7 +201,7 @@ type Request struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Type    Request_RequestType `protobuf:"varint,1,opt,name=type,proto3,enum=gagarin.network.event.Request_RequestType" json:"type,omitempty"`
+	Type    Request_RequestType `protobuf:"varint,1,opt,name=type,proto3,enum=gagarin.bus.event.Request_RequestType" json:"type,omitempty"`
 	Id      []byte              `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
 	Payload *any.Any            `protobuf:"bytes,3,opt,name=payload,proto3" json:"payload,omitempty"`
 }
@@ -722,27 +722,27 @@ func file_event_proto_rawDescGZIP() []byte {
 var file_event_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_event_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_event_proto_goTypes = []interface{}{
-	(Event_EventType)(0),           // 0: gagarin.network.event.Event.EventType
-	(Request_RequestType)(0),       // 1: gagarin.network.event.Request.RequestType
-	(*Event)(nil),                  // 2: gagarin.network.event.Event
-	(*Request)(nil),                // 3: gagarin.network.event.Request
-	(*EpochStartedPayload)(nil),    // 4: gagarin.network.event.EpochStartedPayload
-	(*ViewChangedPayload)(nil),     // 5: gagarin.network.event.ViewChangedPayload
-	(*CommittedPayload)(nil),       // 6: gagarin.network.event.CommittedPayload
-	(*AccountRequestPayload)(nil),  // 7: gagarin.network.event.AccountRequestPayload
-	(*AccountResponsePayload)(nil), // 8: gagarin.network.event.AccountResponsePayload
-	(*AccountUpdatedPayload)(nil),  // 9: gagarin.network.event.AccountUpdatedPayload
-	(*AccountE)(nil),               // 10: gagarin.network.event.AccountE
+	(Event_EventType)(0),           // 0: gagarin.bus.event.Event.EventType
+	(Request_RequestType)(0),       // 1: gagarin.bus.event.Request.RequestType
+	(*Event)(nil),                  // 2: gagarin.bus.event.Event
+	(*Request)(nil),                // 3: gagarin.bus.event.Request
+	(*EpochStartedPayload)(nil),    // 4: gagarin.bus.event.EpochStartedPayload
+	(*ViewChangedPayload)(nil),     // 5: gagarin.bus.event.ViewChangedPayload
+	(*CommittedPayload)(nil),       // 6: gagarin.bus.event.CommittedPayload
+	(*AccountRequestPayload)(nil),  // 7: gagarin.bus.event.AccountRequestPayload
+	(*AccountResponsePayload)(nil), // 8: gagarin.bus.event.AccountResponsePayload
+	(*AccountUpdatedPayload)(nil),  // 9: gagarin.bus.event.AccountUpdatedPayload
+	(*AccountE)(nil),               // 10: gagarin.bus.event.AccountE
 	(*any.Any)(nil),                // 11: google.protobuf.Any
 }
 var file_event_proto_depIdxs = []int32{
-	0,  // 0: gagarin.network.event.Event.type:type_name -> gagarin.network.event.Event.EventType
-	11, // 1: gagarin.network.event.Event.payload:type_name -> google.protobuf.Any
-	1,  // 2: gagarin.network.event.Request.type:type_name -> gagarin.network.event.Request.RequestType
-	11, // 3: gagarin.network.event.Request.payload:type_name -> google.protobuf.Any
-	10, // 4: gagarin.network.event.AccountResponsePayload.account:type_name -> gagarin.network.event.AccountE
-	10, // 5: gagarin.network.event.AccountUpdatedPayload.old:type_name -> gagarin.network.event.AccountE
-	10, // 6: gagarin.network.event.AccountUpdatedPayload.new:type_name -> gagarin.network.event.AccountE
+	0,  // 0: gagarin.bus.event.Event.type:type_name -> gagarin.bus.event.Event.EventType
+	11, // 1: gagarin.bus.event.Event.payload:type_name -> google.protobuf.Any
+	1,  // 2: gagarin.bus.event.Request.type:type_name -> gagarin.bus.event.Request.RequestType
+	11, // 3: gagarin.bus.event.Request.payload:type_name -> google.protobuf.Any
+	10, // 4: gagarin.bus.event.AccountResponsePayload.account:type_name -> gagarin.bus.event.AccountE
+	10, // 5: gagarin.bus.event.AccountUpdatedPayload.old:type_name -> gagarin.bus.event.AccountE
+	10, // 6: gagarin.bus.event.AccountUpdatedPayload.new:type_name -> gagarin.bus.event.AccountE
 	7,  // [7:7] is the sub-list for method output_type
 	7,  // [7:7] is the sub-list for method input_type
 	7,  // [7:7] is the sub-list for extension type_name

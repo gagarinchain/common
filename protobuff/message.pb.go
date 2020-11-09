@@ -205,7 +205,7 @@ type Message struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Type    Message_MessageType `protobuf:"varint,1,opt,name=type,proto3,enum=gagarin.network.core.Message_MessageType" json:"type,omitempty"`
+	Type    Message_MessageType `protobuf:"varint,1,opt,name=type,proto3,enum=gagarin.bus.core.Message_MessageType" json:"type,omitempty"`
 	Payload *any.Any            `protobuf:"bytes,3,opt,name=payload,proto3" json:"payload,omitempty"`
 }
 
@@ -964,7 +964,7 @@ type Error struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Code Error_ErrorCode `protobuf:"varint,1,opt,name=code,proto3,enum=gagarin.network.core.Error_ErrorCode" json:"code,omitempty"`
+	Code Error_ErrorCode `protobuf:"varint,1,opt,name=code,proto3,enum=gagarin.bus.core.Error_ErrorCode" json:"code,omitempty"`
 	Desc string          `protobuf:"bytes,2,opt,name=desc,proto3" json:"desc,omitempty"`
 }
 
@@ -1303,7 +1303,7 @@ type Transaction struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Type      Transaction_Type `protobuf:"varint,1,opt,name=type,proto3,enum=gagarin.network.core.Transaction_Type" json:"type,omitempty"`
+	Type      Transaction_Type `protobuf:"varint,1,opt,name=type,proto3,enum=gagarin.bus.core.Transaction_Type" json:"type,omitempty"`
 	To        []byte           `protobuf:"bytes,2,opt,name=to,proto3" json:"to,omitempty"`
 	Nonce     uint64           `protobuf:"varint,3,opt,name=nonce,proto3" json:"nonce,omitempty"`
 	Value     int64            `protobuf:"varint,4,opt,name=value,proto3" json:"value,omitempty"`
@@ -1610,56 +1610,56 @@ func file_message_proto_rawDescGZIP() []byte {
 var file_message_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
 var file_message_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
 var file_message_proto_goTypes = []interface{}{
-	(Message_MessageType)(0),     // 0: gagarin.network.core.Message.MessageType
-	(Error_ErrorCode)(0),         // 1: gagarin.network.core.Error.ErrorCode
-	(Transaction_Type)(0),        // 2: gagarin.network.core.Transaction.Type
-	(*Message)(nil),              // 3: gagarin.network.core.Message
-	(*HelloPayload)(nil),         // 4: gagarin.network.core.HelloPayload
-	(*EpochStartPayload)(nil),    // 5: gagarin.network.core.EpochStartPayload
-	(*ProposalPayload)(nil),      // 6: gagarin.network.core.ProposalPayload
-	(*VotePayload)(nil),          // 7: gagarin.network.core.VotePayload
-	(*Signature)(nil),            // 8: gagarin.network.core.Signature
-	(*SignatureAggregate)(nil),   // 9: gagarin.network.core.SignatureAggregate
-	(*HeadersRequest)(nil),       // 10: gagarin.network.core.HeadersRequest
-	(*HeadersResponse)(nil),      // 11: gagarin.network.core.HeadersResponse
-	(*Headers)(nil),              // 12: gagarin.network.core.Headers
-	(*BlockRequestPayload)(nil),  // 13: gagarin.network.core.BlockRequestPayload
-	(*BlockResponsePayload)(nil), // 14: gagarin.network.core.BlockResponsePayload
-	(*Error)(nil),                // 15: gagarin.network.core.Error
-	(*QuorumCertificate)(nil),    // 16: gagarin.network.core.QuorumCertificate
-	(*Block)(nil),                // 17: gagarin.network.core.Block
-	(*BlockHeader)(nil),          // 18: gagarin.network.core.BlockHeader
-	(*BlockData)(nil),            // 19: gagarin.network.core.BlockData
-	(*Transaction)(nil),          // 20: gagarin.network.core.Transaction
+	(Message_MessageType)(0),     // 0: gagarin.bus.core.Message.MessageType
+	(Error_ErrorCode)(0),         // 1: gagarin.bus.core.Error.ErrorCode
+	(Transaction_Type)(0),        // 2: gagarin.bus.core.Transaction.Type
+	(*Message)(nil),              // 3: gagarin.bus.core.Message
+	(*HelloPayload)(nil),         // 4: gagarin.bus.core.HelloPayload
+	(*EpochStartPayload)(nil),    // 5: gagarin.bus.core.EpochStartPayload
+	(*ProposalPayload)(nil),      // 6: gagarin.bus.core.ProposalPayload
+	(*VotePayload)(nil),          // 7: gagarin.bus.core.VotePayload
+	(*Signature)(nil),            // 8: gagarin.bus.core.Signature
+	(*SignatureAggregate)(nil),   // 9: gagarin.bus.core.SignatureAggregate
+	(*HeadersRequest)(nil),       // 10: gagarin.bus.core.HeadersRequest
+	(*HeadersResponse)(nil),      // 11: gagarin.bus.core.HeadersResponse
+	(*Headers)(nil),              // 12: gagarin.bus.core.Headers
+	(*BlockRequestPayload)(nil),  // 13: gagarin.bus.core.BlockRequestPayload
+	(*BlockResponsePayload)(nil), // 14: gagarin.bus.core.BlockResponsePayload
+	(*Error)(nil),                // 15: gagarin.bus.core.Error
+	(*QuorumCertificate)(nil),    // 16: gagarin.bus.core.QuorumCertificate
+	(*Block)(nil),                // 17: gagarin.bus.core.Block
+	(*BlockHeader)(nil),          // 18: gagarin.bus.core.BlockHeader
+	(*BlockData)(nil),            // 19: gagarin.bus.core.BlockData
+	(*Transaction)(nil),          // 20: gagarin.bus.core.Transaction
 	(*any.Any)(nil),              // 21: google.protobuf.Any
 }
 var file_message_proto_depIdxs = []int32{
-	0,  // 0: gagarin.network.core.Message.type:type_name -> gagarin.network.core.Message.MessageType
-	21, // 1: gagarin.network.core.Message.payload:type_name -> google.protobuf.Any
-	16, // 2: gagarin.network.core.EpochStartPayload.cert:type_name -> gagarin.network.core.QuorumCertificate
-	8,  // 3: gagarin.network.core.EpochStartPayload.genesisSignature:type_name -> gagarin.network.core.Signature
-	8,  // 4: gagarin.network.core.EpochStartPayload.signature:type_name -> gagarin.network.core.Signature
-	16, // 5: gagarin.network.core.ProposalPayload.cert:type_name -> gagarin.network.core.QuorumCertificate
-	8,  // 6: gagarin.network.core.ProposalPayload.signature:type_name -> gagarin.network.core.Signature
-	17, // 7: gagarin.network.core.ProposalPayload.block:type_name -> gagarin.network.core.Block
-	16, // 8: gagarin.network.core.VotePayload.cert:type_name -> gagarin.network.core.QuorumCertificate
-	8,  // 9: gagarin.network.core.VotePayload.signature:type_name -> gagarin.network.core.Signature
-	18, // 10: gagarin.network.core.VotePayload.header:type_name -> gagarin.network.core.BlockHeader
-	12, // 11: gagarin.network.core.HeadersResponse.headers:type_name -> gagarin.network.core.Headers
-	15, // 12: gagarin.network.core.HeadersResponse.errorCode:type_name -> gagarin.network.core.Error
-	18, // 13: gagarin.network.core.Headers.headers:type_name -> gagarin.network.core.BlockHeader
-	17, // 14: gagarin.network.core.BlockResponsePayload.block:type_name -> gagarin.network.core.Block
-	15, // 15: gagarin.network.core.BlockResponsePayload.errorCode:type_name -> gagarin.network.core.Error
-	1,  // 16: gagarin.network.core.Error.code:type_name -> gagarin.network.core.Error.ErrorCode
-	18, // 17: gagarin.network.core.QuorumCertificate.header:type_name -> gagarin.network.core.BlockHeader
-	9,  // 18: gagarin.network.core.QuorumCertificate.signatureAggregate:type_name -> gagarin.network.core.SignatureAggregate
-	18, // 19: gagarin.network.core.Block.header:type_name -> gagarin.network.core.BlockHeader
-	16, // 20: gagarin.network.core.Block.cert:type_name -> gagarin.network.core.QuorumCertificate
-	9,  // 21: gagarin.network.core.Block.signatureAggregate:type_name -> gagarin.network.core.SignatureAggregate
-	19, // 22: gagarin.network.core.Block.data:type_name -> gagarin.network.core.BlockData
-	20, // 23: gagarin.network.core.Block.txs:type_name -> gagarin.network.core.Transaction
-	2,  // 24: gagarin.network.core.Transaction.type:type_name -> gagarin.network.core.Transaction.Type
-	8,  // 25: gagarin.network.core.Transaction.signature:type_name -> gagarin.network.core.Signature
+	0,  // 0: gagarin.bus.core.Message.type:type_name -> gagarin.bus.core.Message.MessageType
+	21, // 1: gagarin.bus.core.Message.payload:type_name -> google.protobuf.Any
+	16, // 2: gagarin.bus.core.EpochStartPayload.cert:type_name -> gagarin.bus.core.QuorumCertificate
+	8,  // 3: gagarin.bus.core.EpochStartPayload.genesisSignature:type_name -> gagarin.bus.core.Signature
+	8,  // 4: gagarin.bus.core.EpochStartPayload.signature:type_name -> gagarin.bus.core.Signature
+	16, // 5: gagarin.bus.core.ProposalPayload.cert:type_name -> gagarin.bus.core.QuorumCertificate
+	8,  // 6: gagarin.bus.core.ProposalPayload.signature:type_name -> gagarin.bus.core.Signature
+	17, // 7: gagarin.bus.core.ProposalPayload.block:type_name -> gagarin.bus.core.Block
+	16, // 8: gagarin.bus.core.VotePayload.cert:type_name -> gagarin.bus.core.QuorumCertificate
+	8,  // 9: gagarin.bus.core.VotePayload.signature:type_name -> gagarin.bus.core.Signature
+	18, // 10: gagarin.bus.core.VotePayload.header:type_name -> gagarin.bus.core.BlockHeader
+	12, // 11: gagarin.bus.core.HeadersResponse.headers:type_name -> gagarin.bus.core.Headers
+	15, // 12: gagarin.bus.core.HeadersResponse.errorCode:type_name -> gagarin.bus.core.Error
+	18, // 13: gagarin.bus.core.Headers.headers:type_name -> gagarin.bus.core.BlockHeader
+	17, // 14: gagarin.bus.core.BlockResponsePayload.block:type_name -> gagarin.bus.core.Block
+	15, // 15: gagarin.bus.core.BlockResponsePayload.errorCode:type_name -> gagarin.bus.core.Error
+	1,  // 16: gagarin.bus.core.Error.code:type_name -> gagarin.bus.core.Error.ErrorCode
+	18, // 17: gagarin.bus.core.QuorumCertificate.header:type_name -> gagarin.bus.core.BlockHeader
+	9,  // 18: gagarin.bus.core.QuorumCertificate.signatureAggregate:type_name -> gagarin.bus.core.SignatureAggregate
+	18, // 19: gagarin.bus.core.Block.header:type_name -> gagarin.bus.core.BlockHeader
+	16, // 20: gagarin.bus.core.Block.cert:type_name -> gagarin.bus.core.QuorumCertificate
+	9,  // 21: gagarin.bus.core.Block.signatureAggregate:type_name -> gagarin.bus.core.SignatureAggregate
+	19, // 22: gagarin.bus.core.Block.data:type_name -> gagarin.bus.core.BlockData
+	20, // 23: gagarin.bus.core.Block.txs:type_name -> gagarin.bus.core.Transaction
+	2,  // 24: gagarin.bus.core.Transaction.type:type_name -> gagarin.bus.core.Transaction.Type
+	8,  // 25: gagarin.bus.core.Transaction.signature:type_name -> gagarin.bus.core.Signature
 	26, // [26:26] is the sub-list for method output_type
 	26, // [26:26] is the sub-list for method input_type
 	26, // [26:26] is the sub-list for extension type_name
