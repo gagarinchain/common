@@ -278,7 +278,7 @@ func (_m *Blockchain) IsSibling(sibling api.Header, ancestor api.Header) bool {
 }
 
 // NewBlock provides a mock function with given fields: parent, qc, data
-func (_m *Blockchain) NewBlock(parent api.Block, qc api.QuorumCertificate, data []byte) api.Block {
+func (_m *Blockchain) NewBlock(parent api.Block, qc api.QuorumCertificate, data []byte) (api.Block, error) {
 	ret := _m.Called(parent, qc, data)
 
 	var r0 api.Block
@@ -290,7 +290,14 @@ func (_m *Blockchain) NewBlock(parent api.Block, qc api.QuorumCertificate, data 
 		}
 	}
 
-	return r0
+	var r1 error
+	if rf, ok := ret.Get(1).(func(api.Block, api.QuorumCertificate, []byte) error); ok {
+		r1 = rf(parent, qc, data)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
 }
 
 // OnCommit provides a mock function with given fields: b
@@ -326,7 +333,7 @@ func (_m *Blockchain) OnCommit(b api.Block) ([]api.Block, *treemap.Map, error) {
 }
 
 // PadEmptyBlock provides a mock function with given fields: head, qc
-func (_m *Blockchain) PadEmptyBlock(head api.Block, qc api.QuorumCertificate) api.Block {
+func (_m *Blockchain) PadEmptyBlock(head api.Block, qc api.QuorumCertificate) (api.Block, error) {
 	ret := _m.Called(head, qc)
 
 	var r0 api.Block
@@ -338,7 +345,14 @@ func (_m *Blockchain) PadEmptyBlock(head api.Block, qc api.QuorumCertificate) ap
 		}
 	}
 
-	return r0
+	var r1 error
+	if rf, ok := ret.Get(1).(func(api.Block, api.QuorumCertificate) error); ok {
+		r1 = rf(head, qc)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
 }
 
 // RemoveBlock provides a mock function with given fields: block

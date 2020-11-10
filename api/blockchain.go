@@ -27,8 +27,8 @@ type Blockchain interface {
 	GetGenesisBlockSignedHash(key *crypto.PrivateKey) *crypto.Signature
 	AddBlock(block Block) ([]Receipt, error)
 	RemoveBlock(block Block) error
-	NewBlock(parent Block, qc QuorumCertificate, data []byte) Block
-	PadEmptyBlock(head Block, qc QuorumCertificate) Block
+	NewBlock(parent Block, qc QuorumCertificate, data []byte) (Block, error)
+	PadEmptyBlock(head Block, qc QuorumCertificate) (Block, error)
 	ValidateGenesisBlockSignature(signature *crypto.Signature, address common.Address) bool
 	UpdateGenesisBlockQC(certificate QuorumCertificate)
 	SetProposerGetter(proposerGetter ProposerForHeight)
