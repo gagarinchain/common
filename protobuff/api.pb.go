@@ -34,8 +34,11 @@ type OnBlockCommitRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Me      *Peer     `protobuf:"bytes,1,opt,name=me,proto3" json:"me,omitempty"`
-	Block   *BlockS   `protobuf:"bytes,2,opt,name=block,proto3" json:"block,omitempty"`
+	//Self peer of this node
+	Me *Peer `protobuf:"bytes,1,opt,name=me,proto3" json:"me,omitempty"`
+	//Block that was committed
+	Block *BlockS `protobuf:"bytes,2,opt,name=block,proto3" json:"block,omitempty"`
+	//Forked Blocks that were rejected during commit
 	Orphans []*BlockS `protobuf:"bytes,3,rep,name=orphans,proto3" json:"orphans,omitempty"`
 }
 
@@ -135,7 +138,9 @@ type BeforeProposedBlockAddedRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Me       *Peer            `protobuf:"bytes,1,opt,name=me,proto3" json:"me,omitempty"`
+	//Self peer of this node
+	Me *Peer `protobuf:"bytes,1,opt,name=me,proto3" json:"me,omitempty"`
+	//Proposal to be added
 	Proposal *ProposalPayload `protobuf:"bytes,2,opt,name=proposal,proto3" json:"proposal,omitempty"`
 }
 
@@ -190,6 +195,7 @@ type BeforeProposedBlockAddedResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	//Proposal to be added
 	Proposal *ProposalPayload `protobuf:"bytes,1,opt,name=proposal,proto3" json:"proposal,omitempty"`
 }
 
@@ -237,9 +243,12 @@ type AfterProposedBlockAddedRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Me       *Peer            `protobuf:"bytes,1,opt,name=me,proto3" json:"me,omitempty"`
+	//Self peer of this node
+	Me *Peer `protobuf:"bytes,1,opt,name=me,proto3" json:"me,omitempty"`
+	//Proposal that was added
 	Proposal *ProposalPayload `protobuf:"bytes,2,opt,name=proposal,proto3" json:"proposal,omitempty"`
-	Receipts []*Receipt       `protobuf:"bytes,3,rep,name=receipts,proto3" json:"receipts,omitempty"`
+	//Receipts that was created during block's transactions application
+	Receipts []*Receipt `protobuf:"bytes,3,rep,name=receipts,proto3" json:"receipts,omitempty"`
 }
 
 func (x *AfterProposedBlockAddedRequest) Reset() {
@@ -338,7 +347,9 @@ type BeforeVotedRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Me   *Peer        `protobuf:"bytes,1,opt,name=me,proto3" json:"me,omitempty"`
+	//Self peer of this node
+	Me *Peer `protobuf:"bytes,1,opt,name=me,proto3" json:"me,omitempty"`
+	//Vote message
 	Vote *VotePayload `protobuf:"bytes,2,opt,name=vote,proto3" json:"vote,omitempty"`
 }
 
@@ -393,6 +404,7 @@ type BeforeVotedResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	//Vote message
 	Vote *VotePayload `protobuf:"bytes,1,opt,name=vote,proto3" json:"vote,omitempty"`
 }
 
@@ -440,7 +452,9 @@ type AfterVotedRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Me   *Peer        `protobuf:"bytes,1,opt,name=me,proto3" json:"me,omitempty"`
+	//Self peer of this node
+	Me *Peer `protobuf:"bytes,1,opt,name=me,proto3" json:"me,omitempty"`
+	//Vote message
 	Vote *VotePayload `protobuf:"bytes,2,opt,name=vote,proto3" json:"vote,omitempty"`
 }
 
@@ -626,7 +640,9 @@ type OnVoteReceivedRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Me   *Peer        `protobuf:"bytes,1,opt,name=me,proto3" json:"me,omitempty"`
+	//Self peer of this node
+	Me *Peer `protobuf:"bytes,1,opt,name=me,proto3" json:"me,omitempty"`
+	//Vote message
 	Vote *VotePayload `protobuf:"bytes,2,opt,name=vote,proto3" json:"vote,omitempty"`
 }
 
@@ -719,7 +735,9 @@ type OnQCFinishedRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Me *Peer               `protobuf:"bytes,1,opt,name=me,proto3" json:"me,omitempty"`
+	//Self peer of this node
+	Me *Peer `protobuf:"bytes,1,opt,name=me,proto3" json:"me,omitempty"`
+	//Created quorum certificate
 	Qc *QuorumCertificateS `protobuf:"bytes,2,opt,name=qc,proto3" json:"qc,omitempty"`
 }
 
@@ -774,6 +792,7 @@ type OnQCFinishedResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	//Modified quorum certificate
 	Qc *QuorumCertificateS `protobuf:"bytes,2,opt,name=qc,proto3" json:"qc,omitempty"`
 }
 
@@ -821,7 +840,9 @@ type OnNextViewRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Me      *Peer `protobuf:"bytes,1,opt,name=me,proto3" json:"me,omitempty"`
+	//Self peer of this node
+	Me *Peer `protobuf:"bytes,1,opt,name=me,proto3" json:"me,omitempty"`
+	//View number
 	NewView int32 `protobuf:"varint,2,opt,name=newView,proto3" json:"newView,omitempty"`
 }
 
@@ -914,7 +935,9 @@ type OnNextEpochRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Me       *Peer `protobuf:"bytes,1,opt,name=me,proto3" json:"me,omitempty"`
+	//Self peer of this node
+	Me *Peer `protobuf:"bytes,1,opt,name=me,proto3" json:"me,omitempty"`
+	//Epoch number
 	NewEpoch int32 `protobuf:"varint,2,opt,name=newEpoch,proto3" json:"newEpoch,omitempty"`
 }
 
@@ -1007,8 +1030,11 @@ type OnNewBlockCreatedRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Me       *Peer      `protobuf:"bytes,1,opt,name=me,proto3" json:"me,omitempty"`
-	Block    *BlockS    `protobuf:"bytes,2,opt,name=block,proto3" json:"block,omitempty"`
+	//Self peer of this node
+	Me *Peer `protobuf:"bytes,1,opt,name=me,proto3" json:"me,omitempty"`
+	//Block that was created
+	Block *BlockS `protobuf:"bytes,2,opt,name=block,proto3" json:"block,omitempty"`
+	//Receipts that was created during block's transactions application
 	Receipts []*Receipt `protobuf:"bytes,3,rep,name=receipts,proto3" json:"receipts,omitempty"`
 }
 
@@ -1070,6 +1096,7 @@ type OnNewBlockCreatedResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	//Modified block
 	Block *BlockS `protobuf:"bytes,1,opt,name=block,proto3" json:"block,omitempty"`
 }
 
@@ -3250,174 +3277,174 @@ func file_api_proto_rawDescGZIP() []byte {
 
 var file_api_proto_msgTypes = make([]protoimpl.MessageInfo, 58)
 var file_api_proto_goTypes = []interface{}{
-	(*OnBlockCommitRequest)(nil),             // 0: gagarin.bus.api.OnBlockCommitRequest
-	(*OnBlockCommitResponse)(nil),            // 1: gagarin.bus.api.OnBlockCommitResponse
-	(*BeforeProposedBlockAddedRequest)(nil),  // 2: gagarin.bus.api.BeforeProposedBlockAddedRequest
-	(*BeforeProposedBlockAddedResponse)(nil), // 3: gagarin.bus.api.BeforeProposedBlockAddedResponse
-	(*AfterProposedBlockAddedRequest)(nil),   // 4: gagarin.bus.api.AfterProposedBlockAddedRequest
-	(*AfterProposedBlockAddedResponse)(nil),  // 5: gagarin.bus.api.AfterProposedBlockAddedResponse
-	(*BeforeVotedRequest)(nil),               // 6: gagarin.bus.api.BeforeVotedRequest
-	(*BeforeVotedResponse)(nil),              // 7: gagarin.bus.api.BeforeVotedResponse
-	(*AfterVotedRequest)(nil),                // 8: gagarin.bus.api.AfterVotedRequest
-	(*AfterVotedResponse)(nil),               // 9: gagarin.bus.api.AfterVotedResponse
-	(*OnProposalRequest)(nil),                // 10: gagarin.bus.api.OnProposalRequest
-	(*OnProposalResponse)(nil),               // 11: gagarin.bus.api.OnProposalResponse
-	(*OnVoteReceivedRequest)(nil),            // 12: gagarin.bus.api.OnVoteReceivedRequest
-	(*OnVoteReceivedResponse)(nil),           // 13: gagarin.bus.api.OnVoteReceivedResponse
-	(*OnQCFinishedRequest)(nil),              // 14: gagarin.bus.api.OnQCFinishedRequest
-	(*OnQCFinishedResponse)(nil),             // 15: gagarin.bus.api.OnQCFinishedResponse
-	(*OnNextViewRequest)(nil),                // 16: gagarin.bus.api.OnNextViewRequest
-	(*OnNextViewResponse)(nil),               // 17: gagarin.bus.api.OnNextViewResponse
-	(*OnNextEpochRequest)(nil),               // 18: gagarin.bus.api.OnNextEpochRequest
-	(*OnNextEpochResponse)(nil),              // 19: gagarin.bus.api.OnNextEpochResponse
-	(*OnNewBlockCreatedRequest)(nil),         // 20: gagarin.bus.api.OnNewBlockCreatedRequest
-	(*OnNewBlockCreatedResponse)(nil),        // 21: gagarin.bus.api.OnNewBlockCreatedResponse
-	(*GetBlockByHashRequest)(nil),            // 22: gagarin.bus.api.GetBlockByHashRequest
-	(*GetBlockByHashResponse)(nil),           // 23: gagarin.bus.api.GetBlockByHashResponse
-	(*GetBlockByHeightRequest)(nil),          // 24: gagarin.bus.api.GetBlockByHeightRequest
-	(*GetBlockByHeightResponse)(nil),         // 25: gagarin.bus.api.GetBlockByHeightResponse
-	(*GetForkRequest)(nil),                   // 26: gagarin.bus.api.GetForkRequest
-	(*GetForkResponse)(nil),                  // 27: gagarin.bus.api.GetForkResponse
-	(*ContainsRequest)(nil),                  // 28: gagarin.bus.api.ContainsRequest
-	(*ContainsResponse)(nil),                 // 29: gagarin.bus.api.ContainsResponse
-	(*GetThreeChainRequest)(nil),             // 30: gagarin.bus.api.GetThreeChainRequest
-	(*GetThreeChainResponse)(nil),            // 31: gagarin.bus.api.GetThreeChainResponse
-	(*GetHeadRequest)(nil),                   // 32: gagarin.bus.api.GetHeadRequest
-	(*GetHeadResponse)(nil),                  // 33: gagarin.bus.api.GetHeadResponse
-	(*GetTopHeightRequest)(nil),              // 34: gagarin.bus.api.GetTopHeightRequest
-	(*GetTopHeightResponse)(nil),             // 35: gagarin.bus.api.GetTopHeightResponse
-	(*GetTopHeightBlockRequest)(nil),         // 36: gagarin.bus.api.GetTopHeightBlockRequest
-	(*GetTopHeightBlockResponse)(nil),        // 37: gagarin.bus.api.GetTopHeightBlockResponse
-	(*GetGenesisBlockRequest)(nil),           // 38: gagarin.bus.api.GetGenesisBlockRequest
-	(*GetGenesisBlockResponse)(nil),          // 39: gagarin.bus.api.GetGenesisBlockResponse
-	(*IsSiblingRequest)(nil),                 // 40: gagarin.bus.api.IsSiblingRequest
-	(*IsSiblingResponse)(nil),                // 41: gagarin.bus.api.IsSiblingResponse
-	(*GetAccountRequest)(nil),                // 42: gagarin.bus.api.GetAccountRequest
-	(*GetAccountResponse)(nil),               // 43: gagarin.bus.api.GetAccountResponse
-	(*GetTransactionRequest)(nil),            // 44: gagarin.bus.api.GetTransactionRequest
-	(*GetTransactionResponse)(nil),           // 45: gagarin.bus.api.GetTransactionResponse
-	(*GetProposerForViewRequest)(nil),        // 46: gagarin.bus.api.GetProposerForViewRequest
-	(*GetProposerForViewResponse)(nil),       // 47: gagarin.bus.api.GetProposerForViewResponse
-	(*GetCommitteeRequest)(nil),              // 48: gagarin.bus.api.GetCommitteeRequest
-	(*GetCommitteeResponse)(nil),             // 49: gagarin.bus.api.GetCommitteeResponse
-	(*GetCurrentViewRequest)(nil),            // 50: gagarin.bus.api.GetCurrentViewRequest
-	(*GetCurrentViewResponse)(nil),           // 51: gagarin.bus.api.GetCurrentViewResponse
-	(*GetCurrentEpochRequest)(nil),           // 52: gagarin.bus.api.GetCurrentEpochRequest
-	(*GetCurrentEpochResponse)(nil),          // 53: gagarin.bus.api.GetCurrentEpochResponse
-	(*GetTopCommittedBlockRequest)(nil),      // 54: gagarin.bus.api.GetTopCommittedBlockRequest
-	(*GetTopCommittedBlockResponse)(nil),     // 55: gagarin.bus.api.GetTopCommittedBlockResponse
-	(*ExecuteTransactionRequest)(nil),        // 56: gagarin.bus.api.ExecuteTransactionRequest
-	(*ExecuteTransactionResponse)(nil),       // 57: gagarin.bus.api.ExecuteTransactionResponse
-	(*Peer)(nil),                             // 58: gagarin.bus.storage.Peer
-	(*BlockS)(nil),                           // 59: gagarin.bus.storage.BlockS
-	(*ProposalPayload)(nil),                  // 60: gagarin.bus.core.ProposalPayload
-	(*Receipt)(nil),                          // 61: gagarin.bus.storage.Receipt
-	(*VotePayload)(nil),                      // 62: gagarin.bus.core.VotePayload
-	(*QuorumCertificateS)(nil),               // 63: gagarin.bus.storage.QuorumCertificateS
-	(*Account)(nil),                          // 64: gagarin.bus.storage.Account
-	(*TransactionS)(nil),                     // 65: gagarin.bus.storage.TransactionS
+	(*OnBlockCommitRequest)(nil),             // 0: gagarin.network.api.OnBlockCommitRequest
+	(*OnBlockCommitResponse)(nil),            // 1: gagarin.network.api.OnBlockCommitResponse
+	(*BeforeProposedBlockAddedRequest)(nil),  // 2: gagarin.network.api.BeforeProposedBlockAddedRequest
+	(*BeforeProposedBlockAddedResponse)(nil), // 3: gagarin.network.api.BeforeProposedBlockAddedResponse
+	(*AfterProposedBlockAddedRequest)(nil),   // 4: gagarin.network.api.AfterProposedBlockAddedRequest
+	(*AfterProposedBlockAddedResponse)(nil),  // 5: gagarin.network.api.AfterProposedBlockAddedResponse
+	(*BeforeVotedRequest)(nil),               // 6: gagarin.network.api.BeforeVotedRequest
+	(*BeforeVotedResponse)(nil),              // 7: gagarin.network.api.BeforeVotedResponse
+	(*AfterVotedRequest)(nil),                // 8: gagarin.network.api.AfterVotedRequest
+	(*AfterVotedResponse)(nil),               // 9: gagarin.network.api.AfterVotedResponse
+	(*OnProposalRequest)(nil),                // 10: gagarin.network.api.OnProposalRequest
+	(*OnProposalResponse)(nil),               // 11: gagarin.network.api.OnProposalResponse
+	(*OnVoteReceivedRequest)(nil),            // 12: gagarin.network.api.OnVoteReceivedRequest
+	(*OnVoteReceivedResponse)(nil),           // 13: gagarin.network.api.OnVoteReceivedResponse
+	(*OnQCFinishedRequest)(nil),              // 14: gagarin.network.api.OnQCFinishedRequest
+	(*OnQCFinishedResponse)(nil),             // 15: gagarin.network.api.OnQCFinishedResponse
+	(*OnNextViewRequest)(nil),                // 16: gagarin.network.api.OnNextViewRequest
+	(*OnNextViewResponse)(nil),               // 17: gagarin.network.api.OnNextViewResponse
+	(*OnNextEpochRequest)(nil),               // 18: gagarin.network.api.OnNextEpochRequest
+	(*OnNextEpochResponse)(nil),              // 19: gagarin.network.api.OnNextEpochResponse
+	(*OnNewBlockCreatedRequest)(nil),         // 20: gagarin.network.api.OnNewBlockCreatedRequest
+	(*OnNewBlockCreatedResponse)(nil),        // 21: gagarin.network.api.OnNewBlockCreatedResponse
+	(*GetBlockByHashRequest)(nil),            // 22: gagarin.network.api.GetBlockByHashRequest
+	(*GetBlockByHashResponse)(nil),           // 23: gagarin.network.api.GetBlockByHashResponse
+	(*GetBlockByHeightRequest)(nil),          // 24: gagarin.network.api.GetBlockByHeightRequest
+	(*GetBlockByHeightResponse)(nil),         // 25: gagarin.network.api.GetBlockByHeightResponse
+	(*GetForkRequest)(nil),                   // 26: gagarin.network.api.GetForkRequest
+	(*GetForkResponse)(nil),                  // 27: gagarin.network.api.GetForkResponse
+	(*ContainsRequest)(nil),                  // 28: gagarin.network.api.ContainsRequest
+	(*ContainsResponse)(nil),                 // 29: gagarin.network.api.ContainsResponse
+	(*GetThreeChainRequest)(nil),             // 30: gagarin.network.api.GetThreeChainRequest
+	(*GetThreeChainResponse)(nil),            // 31: gagarin.network.api.GetThreeChainResponse
+	(*GetHeadRequest)(nil),                   // 32: gagarin.network.api.GetHeadRequest
+	(*GetHeadResponse)(nil),                  // 33: gagarin.network.api.GetHeadResponse
+	(*GetTopHeightRequest)(nil),              // 34: gagarin.network.api.GetTopHeightRequest
+	(*GetTopHeightResponse)(nil),             // 35: gagarin.network.api.GetTopHeightResponse
+	(*GetTopHeightBlockRequest)(nil),         // 36: gagarin.network.api.GetTopHeightBlockRequest
+	(*GetTopHeightBlockResponse)(nil),        // 37: gagarin.network.api.GetTopHeightBlockResponse
+	(*GetGenesisBlockRequest)(nil),           // 38: gagarin.network.api.GetGenesisBlockRequest
+	(*GetGenesisBlockResponse)(nil),          // 39: gagarin.network.api.GetGenesisBlockResponse
+	(*IsSiblingRequest)(nil),                 // 40: gagarin.network.api.IsSiblingRequest
+	(*IsSiblingResponse)(nil),                // 41: gagarin.network.api.IsSiblingResponse
+	(*GetAccountRequest)(nil),                // 42: gagarin.network.api.GetAccountRequest
+	(*GetAccountResponse)(nil),               // 43: gagarin.network.api.GetAccountResponse
+	(*GetTransactionRequest)(nil),            // 44: gagarin.network.api.GetTransactionRequest
+	(*GetTransactionResponse)(nil),           // 45: gagarin.network.api.GetTransactionResponse
+	(*GetProposerForViewRequest)(nil),        // 46: gagarin.network.api.GetProposerForViewRequest
+	(*GetProposerForViewResponse)(nil),       // 47: gagarin.network.api.GetProposerForViewResponse
+	(*GetCommitteeRequest)(nil),              // 48: gagarin.network.api.GetCommitteeRequest
+	(*GetCommitteeResponse)(nil),             // 49: gagarin.network.api.GetCommitteeResponse
+	(*GetCurrentViewRequest)(nil),            // 50: gagarin.network.api.GetCurrentViewRequest
+	(*GetCurrentViewResponse)(nil),           // 51: gagarin.network.api.GetCurrentViewResponse
+	(*GetCurrentEpochRequest)(nil),           // 52: gagarin.network.api.GetCurrentEpochRequest
+	(*GetCurrentEpochResponse)(nil),          // 53: gagarin.network.api.GetCurrentEpochResponse
+	(*GetTopCommittedBlockRequest)(nil),      // 54: gagarin.network.api.GetTopCommittedBlockRequest
+	(*GetTopCommittedBlockResponse)(nil),     // 55: gagarin.network.api.GetTopCommittedBlockResponse
+	(*ExecuteTransactionRequest)(nil),        // 56: gagarin.network.api.ExecuteTransactionRequest
+	(*ExecuteTransactionResponse)(nil),       // 57: gagarin.network.api.ExecuteTransactionResponse
+	(*Peer)(nil),                             // 58: gagarin.network.storage.Peer
+	(*BlockS)(nil),                           // 59: gagarin.network.storage.BlockS
+	(*ProposalPayload)(nil),                  // 60: gagarin.network.core.ProposalPayload
+	(*Receipt)(nil),                          // 61: gagarin.network.storage.Receipt
+	(*VotePayload)(nil),                      // 62: gagarin.network.core.VotePayload
+	(*QuorumCertificateS)(nil),               // 63: gagarin.network.storage.QuorumCertificateS
+	(*Account)(nil),                          // 64: gagarin.network.storage.Account
+	(*TransactionS)(nil),                     // 65: gagarin.network.storage.TransactionS
 }
 var file_api_proto_depIdxs = []int32{
-	58, // 0: gagarin.bus.api.OnBlockCommitRequest.me:type_name -> gagarin.bus.storage.Peer
-	59, // 1: gagarin.bus.api.OnBlockCommitRequest.block:type_name -> gagarin.bus.storage.BlockS
-	59, // 2: gagarin.bus.api.OnBlockCommitRequest.orphans:type_name -> gagarin.bus.storage.BlockS
-	58, // 3: gagarin.bus.api.BeforeProposedBlockAddedRequest.me:type_name -> gagarin.bus.storage.Peer
-	60, // 4: gagarin.bus.api.BeforeProposedBlockAddedRequest.proposal:type_name -> gagarin.bus.core.ProposalPayload
-	60, // 5: gagarin.bus.api.BeforeProposedBlockAddedResponse.proposal:type_name -> gagarin.bus.core.ProposalPayload
-	58, // 6: gagarin.bus.api.AfterProposedBlockAddedRequest.me:type_name -> gagarin.bus.storage.Peer
-	60, // 7: gagarin.bus.api.AfterProposedBlockAddedRequest.proposal:type_name -> gagarin.bus.core.ProposalPayload
-	61, // 8: gagarin.bus.api.AfterProposedBlockAddedRequest.receipts:type_name -> gagarin.bus.storage.Receipt
-	58, // 9: gagarin.bus.api.BeforeVotedRequest.me:type_name -> gagarin.bus.storage.Peer
-	62, // 10: gagarin.bus.api.BeforeVotedRequest.vote:type_name -> gagarin.bus.core.VotePayload
-	62, // 11: gagarin.bus.api.BeforeVotedResponse.vote:type_name -> gagarin.bus.core.VotePayload
-	58, // 12: gagarin.bus.api.AfterVotedRequest.me:type_name -> gagarin.bus.storage.Peer
-	62, // 13: gagarin.bus.api.AfterVotedRequest.vote:type_name -> gagarin.bus.core.VotePayload
-	58, // 14: gagarin.bus.api.OnProposalRequest.me:type_name -> gagarin.bus.storage.Peer
-	60, // 15: gagarin.bus.api.OnProposalRequest.proposal:type_name -> gagarin.bus.core.ProposalPayload
-	58, // 16: gagarin.bus.api.OnVoteReceivedRequest.me:type_name -> gagarin.bus.storage.Peer
-	62, // 17: gagarin.bus.api.OnVoteReceivedRequest.vote:type_name -> gagarin.bus.core.VotePayload
-	58, // 18: gagarin.bus.api.OnQCFinishedRequest.me:type_name -> gagarin.bus.storage.Peer
-	63, // 19: gagarin.bus.api.OnQCFinishedRequest.qc:type_name -> gagarin.bus.storage.QuorumCertificateS
-	63, // 20: gagarin.bus.api.OnQCFinishedResponse.qc:type_name -> gagarin.bus.storage.QuorumCertificateS
-	58, // 21: gagarin.bus.api.OnNextViewRequest.me:type_name -> gagarin.bus.storage.Peer
-	58, // 22: gagarin.bus.api.OnNextEpochRequest.me:type_name -> gagarin.bus.storage.Peer
-	58, // 23: gagarin.bus.api.OnNewBlockCreatedRequest.me:type_name -> gagarin.bus.storage.Peer
-	59, // 24: gagarin.bus.api.OnNewBlockCreatedRequest.block:type_name -> gagarin.bus.storage.BlockS
-	61, // 25: gagarin.bus.api.OnNewBlockCreatedRequest.receipts:type_name -> gagarin.bus.storage.Receipt
-	59, // 26: gagarin.bus.api.OnNewBlockCreatedResponse.block:type_name -> gagarin.bus.storage.BlockS
-	59, // 27: gagarin.bus.api.GetBlockByHashResponse.block:type_name -> gagarin.bus.storage.BlockS
-	59, // 28: gagarin.bus.api.GetBlockByHeightResponse.blocks:type_name -> gagarin.bus.storage.BlockS
-	59, // 29: gagarin.bus.api.GetForkResponse.blocks:type_name -> gagarin.bus.storage.BlockS
-	59, // 30: gagarin.bus.api.GetThreeChainResponse.zero:type_name -> gagarin.bus.storage.BlockS
-	59, // 31: gagarin.bus.api.GetThreeChainResponse.one:type_name -> gagarin.bus.storage.BlockS
-	59, // 32: gagarin.bus.api.GetThreeChainResponse.two:type_name -> gagarin.bus.storage.BlockS
-	59, // 33: gagarin.bus.api.GetHeadResponse.block:type_name -> gagarin.bus.storage.BlockS
-	59, // 34: gagarin.bus.api.GetTopHeightBlockResponse.block:type_name -> gagarin.bus.storage.BlockS
-	59, // 35: gagarin.bus.api.GetGenesisBlockResponse.block:type_name -> gagarin.bus.storage.BlockS
-	64, // 36: gagarin.bus.api.GetAccountResponse.account:type_name -> gagarin.bus.storage.Account
-	65, // 37: gagarin.bus.api.GetTransactionResponse.tx:type_name -> gagarin.bus.storage.TransactionS
-	58, // 38: gagarin.bus.api.GetProposerForViewResponse.peer:type_name -> gagarin.bus.storage.Peer
-	58, // 39: gagarin.bus.api.GetCommitteeResponse.peer:type_name -> gagarin.bus.storage.Peer
-	59, // 40: gagarin.bus.api.GetTopCommittedBlockResponse.block:type_name -> gagarin.bus.storage.BlockS
-	65, // 41: gagarin.bus.api.ExecuteTransactionRequest.tx:type_name -> gagarin.bus.storage.TransactionS
-	2,  // 42: gagarin.bus.api.OnReceiveProposal.BeforeProposedBlockAdded:input_type -> gagarin.bus.api.BeforeProposedBlockAddedRequest
-	4,  // 43: gagarin.bus.api.OnReceiveProposal.AfterProposedBlockAdded:input_type -> gagarin.bus.api.AfterProposedBlockAddedRequest
-	6,  // 44: gagarin.bus.api.OnReceiveProposal.BeforeVoted:input_type -> gagarin.bus.api.BeforeVotedRequest
-	8,  // 45: gagarin.bus.api.OnReceiveProposal.AfterVoted:input_type -> gagarin.bus.api.AfterVotedRequest
-	10, // 46: gagarin.bus.api.OnProposal.OnProposal:input_type -> gagarin.bus.api.OnProposalRequest
-	12, // 47: gagarin.bus.api.OnVoteReceived.OnVoteReceived:input_type -> gagarin.bus.api.OnVoteReceivedRequest
-	14, // 48: gagarin.bus.api.OnVoteReceived.OnQCFinished:input_type -> gagarin.bus.api.OnQCFinishedRequest
-	20, // 49: gagarin.bus.api.OnNewBlockCreated.OnNewBlockCreated:input_type -> gagarin.bus.api.OnNewBlockCreatedRequest
-	0,  // 50: gagarin.bus.api.OnBlockCommit.OnBlockCommit:input_type -> gagarin.bus.api.OnBlockCommitRequest
-	16, // 51: gagarin.bus.api.OnNextView.OnNextView:input_type -> gagarin.bus.api.OnNextViewRequest
-	18, // 52: gagarin.bus.api.OnNextEpoch.OnNextEpoch:input_type -> gagarin.bus.api.OnNextEpochRequest
-	22, // 53: gagarin.bus.api.CommonService.GetBlockByHash:input_type -> gagarin.bus.api.GetBlockByHashRequest
-	24, // 54: gagarin.bus.api.CommonService.GetBlocksByHeight:input_type -> gagarin.bus.api.GetBlockByHeightRequest
-	26, // 55: gagarin.bus.api.CommonService.GetFork:input_type -> gagarin.bus.api.GetForkRequest
-	28, // 56: gagarin.bus.api.CommonService.Contains:input_type -> gagarin.bus.api.ContainsRequest
-	30, // 57: gagarin.bus.api.CommonService.GetThreeChain:input_type -> gagarin.bus.api.GetThreeChainRequest
-	32, // 58: gagarin.bus.api.CommonService.GetHead:input_type -> gagarin.bus.api.GetHeadRequest
-	34, // 59: gagarin.bus.api.CommonService.GetTopHeight:input_type -> gagarin.bus.api.GetTopHeightRequest
-	36, // 60: gagarin.bus.api.CommonService.GetTopHeightBlock:input_type -> gagarin.bus.api.GetTopHeightBlockRequest
-	38, // 61: gagarin.bus.api.CommonService.GetGenesisBlock:input_type -> gagarin.bus.api.GetGenesisBlockRequest
-	40, // 62: gagarin.bus.api.CommonService.IsSibling:input_type -> gagarin.bus.api.IsSiblingRequest
-	42, // 63: gagarin.bus.api.CommonService.GetAccount:input_type -> gagarin.bus.api.GetAccountRequest
-	44, // 64: gagarin.bus.api.CommonService.GetTransaction:input_type -> gagarin.bus.api.GetTransactionRequest
-	46, // 65: gagarin.bus.api.CommonService.GetProposerForView:input_type -> gagarin.bus.api.GetProposerForViewRequest
-	48, // 66: gagarin.bus.api.CommonService.GetCommittee:input_type -> gagarin.bus.api.GetCommitteeRequest
-	50, // 67: gagarin.bus.api.CommonService.GetCurrentView:input_type -> gagarin.bus.api.GetCurrentViewRequest
-	52, // 68: gagarin.bus.api.CommonService.GetCurrentEpoch:input_type -> gagarin.bus.api.GetCurrentEpochRequest
-	54, // 69: gagarin.bus.api.CommonService.GetTopCommittedBlock:input_type -> gagarin.bus.api.GetTopCommittedBlockRequest
-	56, // 70: gagarin.bus.api.CommonService.ExecuteTransaction:input_type -> gagarin.bus.api.ExecuteTransactionRequest
-	3,  // 71: gagarin.bus.api.OnReceiveProposal.BeforeProposedBlockAdded:output_type -> gagarin.bus.api.BeforeProposedBlockAddedResponse
-	5,  // 72: gagarin.bus.api.OnReceiveProposal.AfterProposedBlockAdded:output_type -> gagarin.bus.api.AfterProposedBlockAddedResponse
-	7,  // 73: gagarin.bus.api.OnReceiveProposal.BeforeVoted:output_type -> gagarin.bus.api.BeforeVotedResponse
-	9,  // 74: gagarin.bus.api.OnReceiveProposal.AfterVoted:output_type -> gagarin.bus.api.AfterVotedResponse
-	11, // 75: gagarin.bus.api.OnProposal.OnProposal:output_type -> gagarin.bus.api.OnProposalResponse
-	13, // 76: gagarin.bus.api.OnVoteReceived.OnVoteReceived:output_type -> gagarin.bus.api.OnVoteReceivedResponse
-	15, // 77: gagarin.bus.api.OnVoteReceived.OnQCFinished:output_type -> gagarin.bus.api.OnQCFinishedResponse
-	21, // 78: gagarin.bus.api.OnNewBlockCreated.OnNewBlockCreated:output_type -> gagarin.bus.api.OnNewBlockCreatedResponse
-	1,  // 79: gagarin.bus.api.OnBlockCommit.OnBlockCommit:output_type -> gagarin.bus.api.OnBlockCommitResponse
-	17, // 80: gagarin.bus.api.OnNextView.OnNextView:output_type -> gagarin.bus.api.OnNextViewResponse
-	19, // 81: gagarin.bus.api.OnNextEpoch.OnNextEpoch:output_type -> gagarin.bus.api.OnNextEpochResponse
-	23, // 82: gagarin.bus.api.CommonService.GetBlockByHash:output_type -> gagarin.bus.api.GetBlockByHashResponse
-	25, // 83: gagarin.bus.api.CommonService.GetBlocksByHeight:output_type -> gagarin.bus.api.GetBlockByHeightResponse
-	27, // 84: gagarin.bus.api.CommonService.GetFork:output_type -> gagarin.bus.api.GetForkResponse
-	29, // 85: gagarin.bus.api.CommonService.Contains:output_type -> gagarin.bus.api.ContainsResponse
-	31, // 86: gagarin.bus.api.CommonService.GetThreeChain:output_type -> gagarin.bus.api.GetThreeChainResponse
-	33, // 87: gagarin.bus.api.CommonService.GetHead:output_type -> gagarin.bus.api.GetHeadResponse
-	35, // 88: gagarin.bus.api.CommonService.GetTopHeight:output_type -> gagarin.bus.api.GetTopHeightResponse
-	37, // 89: gagarin.bus.api.CommonService.GetTopHeightBlock:output_type -> gagarin.bus.api.GetTopHeightBlockResponse
-	39, // 90: gagarin.bus.api.CommonService.GetGenesisBlock:output_type -> gagarin.bus.api.GetGenesisBlockResponse
-	41, // 91: gagarin.bus.api.CommonService.IsSibling:output_type -> gagarin.bus.api.IsSiblingResponse
-	43, // 92: gagarin.bus.api.CommonService.GetAccount:output_type -> gagarin.bus.api.GetAccountResponse
-	45, // 93: gagarin.bus.api.CommonService.GetTransaction:output_type -> gagarin.bus.api.GetTransactionResponse
-	47, // 94: gagarin.bus.api.CommonService.GetProposerForView:output_type -> gagarin.bus.api.GetProposerForViewResponse
-	49, // 95: gagarin.bus.api.CommonService.GetCommittee:output_type -> gagarin.bus.api.GetCommitteeResponse
-	51, // 96: gagarin.bus.api.CommonService.GetCurrentView:output_type -> gagarin.bus.api.GetCurrentViewResponse
-	53, // 97: gagarin.bus.api.CommonService.GetCurrentEpoch:output_type -> gagarin.bus.api.GetCurrentEpochResponse
-	55, // 98: gagarin.bus.api.CommonService.GetTopCommittedBlock:output_type -> gagarin.bus.api.GetTopCommittedBlockResponse
-	57, // 99: gagarin.bus.api.CommonService.ExecuteTransaction:output_type -> gagarin.bus.api.ExecuteTransactionResponse
+	58, // 0: gagarin.network.api.OnBlockCommitRequest.me:type_name -> gagarin.network.storage.Peer
+	59, // 1: gagarin.network.api.OnBlockCommitRequest.block:type_name -> gagarin.network.storage.BlockS
+	59, // 2: gagarin.network.api.OnBlockCommitRequest.orphans:type_name -> gagarin.network.storage.BlockS
+	58, // 3: gagarin.network.api.BeforeProposedBlockAddedRequest.me:type_name -> gagarin.network.storage.Peer
+	60, // 4: gagarin.network.api.BeforeProposedBlockAddedRequest.proposal:type_name -> gagarin.network.core.ProposalPayload
+	60, // 5: gagarin.network.api.BeforeProposedBlockAddedResponse.proposal:type_name -> gagarin.network.core.ProposalPayload
+	58, // 6: gagarin.network.api.AfterProposedBlockAddedRequest.me:type_name -> gagarin.network.storage.Peer
+	60, // 7: gagarin.network.api.AfterProposedBlockAddedRequest.proposal:type_name -> gagarin.network.core.ProposalPayload
+	61, // 8: gagarin.network.api.AfterProposedBlockAddedRequest.receipts:type_name -> gagarin.network.storage.Receipt
+	58, // 9: gagarin.network.api.BeforeVotedRequest.me:type_name -> gagarin.network.storage.Peer
+	62, // 10: gagarin.network.api.BeforeVotedRequest.vote:type_name -> gagarin.network.core.VotePayload
+	62, // 11: gagarin.network.api.BeforeVotedResponse.vote:type_name -> gagarin.network.core.VotePayload
+	58, // 12: gagarin.network.api.AfterVotedRequest.me:type_name -> gagarin.network.storage.Peer
+	62, // 13: gagarin.network.api.AfterVotedRequest.vote:type_name -> gagarin.network.core.VotePayload
+	58, // 14: gagarin.network.api.OnProposalRequest.me:type_name -> gagarin.network.storage.Peer
+	60, // 15: gagarin.network.api.OnProposalRequest.proposal:type_name -> gagarin.network.core.ProposalPayload
+	58, // 16: gagarin.network.api.OnVoteReceivedRequest.me:type_name -> gagarin.network.storage.Peer
+	62, // 17: gagarin.network.api.OnVoteReceivedRequest.vote:type_name -> gagarin.network.core.VotePayload
+	58, // 18: gagarin.network.api.OnQCFinishedRequest.me:type_name -> gagarin.network.storage.Peer
+	63, // 19: gagarin.network.api.OnQCFinishedRequest.qc:type_name -> gagarin.network.storage.QuorumCertificateS
+	63, // 20: gagarin.network.api.OnQCFinishedResponse.qc:type_name -> gagarin.network.storage.QuorumCertificateS
+	58, // 21: gagarin.network.api.OnNextViewRequest.me:type_name -> gagarin.network.storage.Peer
+	58, // 22: gagarin.network.api.OnNextEpochRequest.me:type_name -> gagarin.network.storage.Peer
+	58, // 23: gagarin.network.api.OnNewBlockCreatedRequest.me:type_name -> gagarin.network.storage.Peer
+	59, // 24: gagarin.network.api.OnNewBlockCreatedRequest.block:type_name -> gagarin.network.storage.BlockS
+	61, // 25: gagarin.network.api.OnNewBlockCreatedRequest.receipts:type_name -> gagarin.network.storage.Receipt
+	59, // 26: gagarin.network.api.OnNewBlockCreatedResponse.block:type_name -> gagarin.network.storage.BlockS
+	59, // 27: gagarin.network.api.GetBlockByHashResponse.block:type_name -> gagarin.network.storage.BlockS
+	59, // 28: gagarin.network.api.GetBlockByHeightResponse.blocks:type_name -> gagarin.network.storage.BlockS
+	59, // 29: gagarin.network.api.GetForkResponse.blocks:type_name -> gagarin.network.storage.BlockS
+	59, // 30: gagarin.network.api.GetThreeChainResponse.zero:type_name -> gagarin.network.storage.BlockS
+	59, // 31: gagarin.network.api.GetThreeChainResponse.one:type_name -> gagarin.network.storage.BlockS
+	59, // 32: gagarin.network.api.GetThreeChainResponse.two:type_name -> gagarin.network.storage.BlockS
+	59, // 33: gagarin.network.api.GetHeadResponse.block:type_name -> gagarin.network.storage.BlockS
+	59, // 34: gagarin.network.api.GetTopHeightBlockResponse.block:type_name -> gagarin.network.storage.BlockS
+	59, // 35: gagarin.network.api.GetGenesisBlockResponse.block:type_name -> gagarin.network.storage.BlockS
+	64, // 36: gagarin.network.api.GetAccountResponse.account:type_name -> gagarin.network.storage.Account
+	65, // 37: gagarin.network.api.GetTransactionResponse.tx:type_name -> gagarin.network.storage.TransactionS
+	58, // 38: gagarin.network.api.GetProposerForViewResponse.peer:type_name -> gagarin.network.storage.Peer
+	58, // 39: gagarin.network.api.GetCommitteeResponse.peer:type_name -> gagarin.network.storage.Peer
+	59, // 40: gagarin.network.api.GetTopCommittedBlockResponse.block:type_name -> gagarin.network.storage.BlockS
+	65, // 41: gagarin.network.api.ExecuteTransactionRequest.tx:type_name -> gagarin.network.storage.TransactionS
+	2,  // 42: gagarin.network.api.OnReceiveProposal.BeforeProposedBlockAdded:input_type -> gagarin.network.api.BeforeProposedBlockAddedRequest
+	4,  // 43: gagarin.network.api.OnReceiveProposal.AfterProposedBlockAdded:input_type -> gagarin.network.api.AfterProposedBlockAddedRequest
+	6,  // 44: gagarin.network.api.OnReceiveProposal.BeforeVoted:input_type -> gagarin.network.api.BeforeVotedRequest
+	8,  // 45: gagarin.network.api.OnReceiveProposal.AfterVoted:input_type -> gagarin.network.api.AfterVotedRequest
+	10, // 46: gagarin.network.api.OnProposal.OnProposal:input_type -> gagarin.network.api.OnProposalRequest
+	12, // 47: gagarin.network.api.OnVoteReceived.OnVoteReceived:input_type -> gagarin.network.api.OnVoteReceivedRequest
+	14, // 48: gagarin.network.api.OnVoteReceived.OnQCFinished:input_type -> gagarin.network.api.OnQCFinishedRequest
+	20, // 49: gagarin.network.api.OnNewBlockCreated.OnNewBlockCreated:input_type -> gagarin.network.api.OnNewBlockCreatedRequest
+	0,  // 50: gagarin.network.api.OnBlockCommit.OnBlockCommit:input_type -> gagarin.network.api.OnBlockCommitRequest
+	16, // 51: gagarin.network.api.OnNextView.OnNextView:input_type -> gagarin.network.api.OnNextViewRequest
+	18, // 52: gagarin.network.api.OnNextEpoch.OnNextEpoch:input_type -> gagarin.network.api.OnNextEpochRequest
+	22, // 53: gagarin.network.api.CommonService.GetBlockByHash:input_type -> gagarin.network.api.GetBlockByHashRequest
+	24, // 54: gagarin.network.api.CommonService.GetBlocksByHeight:input_type -> gagarin.network.api.GetBlockByHeightRequest
+	26, // 55: gagarin.network.api.CommonService.GetFork:input_type -> gagarin.network.api.GetForkRequest
+	28, // 56: gagarin.network.api.CommonService.Contains:input_type -> gagarin.network.api.ContainsRequest
+	30, // 57: gagarin.network.api.CommonService.GetThreeChain:input_type -> gagarin.network.api.GetThreeChainRequest
+	32, // 58: gagarin.network.api.CommonService.GetHead:input_type -> gagarin.network.api.GetHeadRequest
+	34, // 59: gagarin.network.api.CommonService.GetTopHeight:input_type -> gagarin.network.api.GetTopHeightRequest
+	36, // 60: gagarin.network.api.CommonService.GetTopHeightBlock:input_type -> gagarin.network.api.GetTopHeightBlockRequest
+	38, // 61: gagarin.network.api.CommonService.GetGenesisBlock:input_type -> gagarin.network.api.GetGenesisBlockRequest
+	40, // 62: gagarin.network.api.CommonService.IsSibling:input_type -> gagarin.network.api.IsSiblingRequest
+	42, // 63: gagarin.network.api.CommonService.GetAccount:input_type -> gagarin.network.api.GetAccountRequest
+	44, // 64: gagarin.network.api.CommonService.GetTransaction:input_type -> gagarin.network.api.GetTransactionRequest
+	46, // 65: gagarin.network.api.CommonService.GetProposerForView:input_type -> gagarin.network.api.GetProposerForViewRequest
+	48, // 66: gagarin.network.api.CommonService.GetCommittee:input_type -> gagarin.network.api.GetCommitteeRequest
+	50, // 67: gagarin.network.api.CommonService.GetCurrentView:input_type -> gagarin.network.api.GetCurrentViewRequest
+	52, // 68: gagarin.network.api.CommonService.GetCurrentEpoch:input_type -> gagarin.network.api.GetCurrentEpochRequest
+	54, // 69: gagarin.network.api.CommonService.GetTopCommittedBlock:input_type -> gagarin.network.api.GetTopCommittedBlockRequest
+	56, // 70: gagarin.network.api.CommonService.ExecuteTransaction:input_type -> gagarin.network.api.ExecuteTransactionRequest
+	3,  // 71: gagarin.network.api.OnReceiveProposal.BeforeProposedBlockAdded:output_type -> gagarin.network.api.BeforeProposedBlockAddedResponse
+	5,  // 72: gagarin.network.api.OnReceiveProposal.AfterProposedBlockAdded:output_type -> gagarin.network.api.AfterProposedBlockAddedResponse
+	7,  // 73: gagarin.network.api.OnReceiveProposal.BeforeVoted:output_type -> gagarin.network.api.BeforeVotedResponse
+	9,  // 74: gagarin.network.api.OnReceiveProposal.AfterVoted:output_type -> gagarin.network.api.AfterVotedResponse
+	11, // 75: gagarin.network.api.OnProposal.OnProposal:output_type -> gagarin.network.api.OnProposalResponse
+	13, // 76: gagarin.network.api.OnVoteReceived.OnVoteReceived:output_type -> gagarin.network.api.OnVoteReceivedResponse
+	15, // 77: gagarin.network.api.OnVoteReceived.OnQCFinished:output_type -> gagarin.network.api.OnQCFinishedResponse
+	21, // 78: gagarin.network.api.OnNewBlockCreated.OnNewBlockCreated:output_type -> gagarin.network.api.OnNewBlockCreatedResponse
+	1,  // 79: gagarin.network.api.OnBlockCommit.OnBlockCommit:output_type -> gagarin.network.api.OnBlockCommitResponse
+	17, // 80: gagarin.network.api.OnNextView.OnNextView:output_type -> gagarin.network.api.OnNextViewResponse
+	19, // 81: gagarin.network.api.OnNextEpoch.OnNextEpoch:output_type -> gagarin.network.api.OnNextEpochResponse
+	23, // 82: gagarin.network.api.CommonService.GetBlockByHash:output_type -> gagarin.network.api.GetBlockByHashResponse
+	25, // 83: gagarin.network.api.CommonService.GetBlocksByHeight:output_type -> gagarin.network.api.GetBlockByHeightResponse
+	27, // 84: gagarin.network.api.CommonService.GetFork:output_type -> gagarin.network.api.GetForkResponse
+	29, // 85: gagarin.network.api.CommonService.Contains:output_type -> gagarin.network.api.ContainsResponse
+	31, // 86: gagarin.network.api.CommonService.GetThreeChain:output_type -> gagarin.network.api.GetThreeChainResponse
+	33, // 87: gagarin.network.api.CommonService.GetHead:output_type -> gagarin.network.api.GetHeadResponse
+	35, // 88: gagarin.network.api.CommonService.GetTopHeight:output_type -> gagarin.network.api.GetTopHeightResponse
+	37, // 89: gagarin.network.api.CommonService.GetTopHeightBlock:output_type -> gagarin.network.api.GetTopHeightBlockResponse
+	39, // 90: gagarin.network.api.CommonService.GetGenesisBlock:output_type -> gagarin.network.api.GetGenesisBlockResponse
+	41, // 91: gagarin.network.api.CommonService.IsSibling:output_type -> gagarin.network.api.IsSiblingResponse
+	43, // 92: gagarin.network.api.CommonService.GetAccount:output_type -> gagarin.network.api.GetAccountResponse
+	45, // 93: gagarin.network.api.CommonService.GetTransaction:output_type -> gagarin.network.api.GetTransactionResponse
+	47, // 94: gagarin.network.api.CommonService.GetProposerForView:output_type -> gagarin.network.api.GetProposerForViewResponse
+	49, // 95: gagarin.network.api.CommonService.GetCommittee:output_type -> gagarin.network.api.GetCommitteeResponse
+	51, // 96: gagarin.network.api.CommonService.GetCurrentView:output_type -> gagarin.network.api.GetCurrentViewResponse
+	53, // 97: gagarin.network.api.CommonService.GetCurrentEpoch:output_type -> gagarin.network.api.GetCurrentEpochResponse
+	55, // 98: gagarin.network.api.CommonService.GetTopCommittedBlock:output_type -> gagarin.network.api.GetTopCommittedBlockResponse
+	57, // 99: gagarin.network.api.CommonService.ExecuteTransaction:output_type -> gagarin.network.api.ExecuteTransactionResponse
 	71, // [71:100] is the sub-list for method output_type
 	42, // [42:71] is the sub-list for method input_type
 	42, // [42:42] is the sub-list for extension type_name
@@ -4162,9 +4189,13 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type OnReceiveProposalClient interface {
+	//Called before proposed block is added to blockchain
 	BeforeProposedBlockAdded(ctx context.Context, in *BeforeProposedBlockAddedRequest, opts ...grpc.CallOption) (*BeforeProposedBlockAddedResponse, error)
+	//Called after proposed block is added to blockchain
 	AfterProposedBlockAdded(ctx context.Context, in *AfterProposedBlockAddedRequest, opts ...grpc.CallOption) (*AfterProposedBlockAddedResponse, error)
+	//Called before replica voted for block
 	BeforeVoted(ctx context.Context, in *BeforeVotedRequest, opts ...grpc.CallOption) (*BeforeVotedResponse, error)
+	//Called after replica voted for block
 	AfterVoted(ctx context.Context, in *AfterVotedRequest, opts ...grpc.CallOption) (*AfterVotedResponse, error)
 }
 
@@ -4178,7 +4209,7 @@ func NewOnReceiveProposalClient(cc grpc.ClientConnInterface) OnReceiveProposalCl
 
 func (c *onReceiveProposalClient) BeforeProposedBlockAdded(ctx context.Context, in *BeforeProposedBlockAddedRequest, opts ...grpc.CallOption) (*BeforeProposedBlockAddedResponse, error) {
 	out := new(BeforeProposedBlockAddedResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.OnReceiveProposal/BeforeProposedBlockAdded", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.OnReceiveProposal/BeforeProposedBlockAdded", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4187,7 +4218,7 @@ func (c *onReceiveProposalClient) BeforeProposedBlockAdded(ctx context.Context, 
 
 func (c *onReceiveProposalClient) AfterProposedBlockAdded(ctx context.Context, in *AfterProposedBlockAddedRequest, opts ...grpc.CallOption) (*AfterProposedBlockAddedResponse, error) {
 	out := new(AfterProposedBlockAddedResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.OnReceiveProposal/AfterProposedBlockAdded", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.OnReceiveProposal/AfterProposedBlockAdded", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4196,7 +4227,7 @@ func (c *onReceiveProposalClient) AfterProposedBlockAdded(ctx context.Context, i
 
 func (c *onReceiveProposalClient) BeforeVoted(ctx context.Context, in *BeforeVotedRequest, opts ...grpc.CallOption) (*BeforeVotedResponse, error) {
 	out := new(BeforeVotedResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.OnReceiveProposal/BeforeVoted", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.OnReceiveProposal/BeforeVoted", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4205,7 +4236,7 @@ func (c *onReceiveProposalClient) BeforeVoted(ctx context.Context, in *BeforeVot
 
 func (c *onReceiveProposalClient) AfterVoted(ctx context.Context, in *AfterVotedRequest, opts ...grpc.CallOption) (*AfterVotedResponse, error) {
 	out := new(AfterVotedResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.OnReceiveProposal/AfterVoted", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.OnReceiveProposal/AfterVoted", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4214,9 +4245,13 @@ func (c *onReceiveProposalClient) AfterVoted(ctx context.Context, in *AfterVoted
 
 // OnReceiveProposalServer is the server API for OnReceiveProposal service.
 type OnReceiveProposalServer interface {
+	//Called before proposed block is added to blockchain
 	BeforeProposedBlockAdded(context.Context, *BeforeProposedBlockAddedRequest) (*BeforeProposedBlockAddedResponse, error)
+	//Called after proposed block is added to blockchain
 	AfterProposedBlockAdded(context.Context, *AfterProposedBlockAddedRequest) (*AfterProposedBlockAddedResponse, error)
+	//Called before replica voted for block
 	BeforeVoted(context.Context, *BeforeVotedRequest) (*BeforeVotedResponse, error)
+	//Called after replica voted for block
 	AfterVoted(context.Context, *AfterVotedRequest) (*AfterVotedResponse, error)
 }
 
@@ -4251,7 +4286,7 @@ func _OnReceiveProposal_BeforeProposedBlockAdded_Handler(srv interface{}, ctx co
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.OnReceiveProposal/BeforeProposedBlockAdded",
+		FullMethod: "/gagarin.network.api.OnReceiveProposal/BeforeProposedBlockAdded",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OnReceiveProposalServer).BeforeProposedBlockAdded(ctx, req.(*BeforeProposedBlockAddedRequest))
@@ -4269,7 +4304,7 @@ func _OnReceiveProposal_AfterProposedBlockAdded_Handler(srv interface{}, ctx con
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.OnReceiveProposal/AfterProposedBlockAdded",
+		FullMethod: "/gagarin.network.api.OnReceiveProposal/AfterProposedBlockAdded",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OnReceiveProposalServer).AfterProposedBlockAdded(ctx, req.(*AfterProposedBlockAddedRequest))
@@ -4287,7 +4322,7 @@ func _OnReceiveProposal_BeforeVoted_Handler(srv interface{}, ctx context.Context
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.OnReceiveProposal/BeforeVoted",
+		FullMethod: "/gagarin.network.api.OnReceiveProposal/BeforeVoted",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OnReceiveProposalServer).BeforeVoted(ctx, req.(*BeforeVotedRequest))
@@ -4305,7 +4340,7 @@ func _OnReceiveProposal_AfterVoted_Handler(srv interface{}, ctx context.Context,
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.OnReceiveProposal/AfterVoted",
+		FullMethod: "/gagarin.network.api.OnReceiveProposal/AfterVoted",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OnReceiveProposalServer).AfterVoted(ctx, req.(*AfterVotedRequest))
@@ -4314,7 +4349,7 @@ func _OnReceiveProposal_AfterVoted_Handler(srv interface{}, ctx context.Context,
 }
 
 var _OnReceiveProposal_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "gagarin.bus.api.OnReceiveProposal",
+	ServiceName: "gagarin.network.api.OnReceiveProposal",
 	HandlerType: (*OnReceiveProposalServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -4342,6 +4377,7 @@ var _OnReceiveProposal_serviceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type OnProposalClient interface {
+	//Called when proposal is created
 	OnProposal(ctx context.Context, in *OnProposalRequest, opts ...grpc.CallOption) (*OnProposalResponse, error)
 }
 
@@ -4355,7 +4391,7 @@ func NewOnProposalClient(cc grpc.ClientConnInterface) OnProposalClient {
 
 func (c *onProposalClient) OnProposal(ctx context.Context, in *OnProposalRequest, opts ...grpc.CallOption) (*OnProposalResponse, error) {
 	out := new(OnProposalResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.OnProposal/OnProposal", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.OnProposal/OnProposal", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4364,6 +4400,7 @@ func (c *onProposalClient) OnProposal(ctx context.Context, in *OnProposalRequest
 
 // OnProposalServer is the server API for OnProposal service.
 type OnProposalServer interface {
+	//Called when proposal is created
 	OnProposal(context.Context, *OnProposalRequest) (*OnProposalResponse, error)
 }
 
@@ -4389,7 +4426,7 @@ func _OnProposal_OnProposal_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.OnProposal/OnProposal",
+		FullMethod: "/gagarin.network.api.OnProposal/OnProposal",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OnProposalServer).OnProposal(ctx, req.(*OnProposalRequest))
@@ -4398,7 +4435,7 @@ func _OnProposal_OnProposal_Handler(srv interface{}, ctx context.Context, dec fu
 }
 
 var _OnProposal_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "gagarin.bus.api.OnProposal",
+	ServiceName: "gagarin.network.api.OnProposal",
 	HandlerType: (*OnProposalServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -4414,7 +4451,9 @@ var _OnProposal_serviceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type OnVoteReceivedClient interface {
+	//Called when vote is received
 	OnVoteReceived(ctx context.Context, in *OnVoteReceivedRequest, opts ...grpc.CallOption) (*OnVoteReceivedResponse, error)
+	//Called when quorum certificate is created
 	OnQCFinished(ctx context.Context, in *OnQCFinishedRequest, opts ...grpc.CallOption) (*OnQCFinishedResponse, error)
 }
 
@@ -4428,7 +4467,7 @@ func NewOnVoteReceivedClient(cc grpc.ClientConnInterface) OnVoteReceivedClient {
 
 func (c *onVoteReceivedClient) OnVoteReceived(ctx context.Context, in *OnVoteReceivedRequest, opts ...grpc.CallOption) (*OnVoteReceivedResponse, error) {
 	out := new(OnVoteReceivedResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.OnVoteReceived/OnVoteReceived", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.OnVoteReceived/OnVoteReceived", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4437,7 +4476,7 @@ func (c *onVoteReceivedClient) OnVoteReceived(ctx context.Context, in *OnVoteRec
 
 func (c *onVoteReceivedClient) OnQCFinished(ctx context.Context, in *OnQCFinishedRequest, opts ...grpc.CallOption) (*OnQCFinishedResponse, error) {
 	out := new(OnQCFinishedResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.OnVoteReceived/OnQCFinished", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.OnVoteReceived/OnQCFinished", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4446,7 +4485,9 @@ func (c *onVoteReceivedClient) OnQCFinished(ctx context.Context, in *OnQCFinishe
 
 // OnVoteReceivedServer is the server API for OnVoteReceived service.
 type OnVoteReceivedServer interface {
+	//Called when vote is received
 	OnVoteReceived(context.Context, *OnVoteReceivedRequest) (*OnVoteReceivedResponse, error)
+	//Called when quorum certificate is created
 	OnQCFinished(context.Context, *OnQCFinishedRequest) (*OnQCFinishedResponse, error)
 }
 
@@ -4475,7 +4516,7 @@ func _OnVoteReceived_OnVoteReceived_Handler(srv interface{}, ctx context.Context
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.OnVoteReceived/OnVoteReceived",
+		FullMethod: "/gagarin.network.api.OnVoteReceived/OnVoteReceived",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OnVoteReceivedServer).OnVoteReceived(ctx, req.(*OnVoteReceivedRequest))
@@ -4493,7 +4534,7 @@ func _OnVoteReceived_OnQCFinished_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.OnVoteReceived/OnQCFinished",
+		FullMethod: "/gagarin.network.api.OnVoteReceived/OnQCFinished",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OnVoteReceivedServer).OnQCFinished(ctx, req.(*OnQCFinishedRequest))
@@ -4502,7 +4543,7 @@ func _OnVoteReceived_OnQCFinished_Handler(srv interface{}, ctx context.Context, 
 }
 
 var _OnVoteReceived_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "gagarin.bus.api.OnVoteReceived",
+	ServiceName: "gagarin.network.api.OnVoteReceived",
 	HandlerType: (*OnVoteReceivedServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -4522,6 +4563,7 @@ var _OnVoteReceived_serviceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type OnNewBlockCreatedClient interface {
+	//Called when transactions are applied and block is ready to be proposed
 	OnNewBlockCreated(ctx context.Context, in *OnNewBlockCreatedRequest, opts ...grpc.CallOption) (*OnNewBlockCreatedResponse, error)
 }
 
@@ -4535,7 +4577,7 @@ func NewOnNewBlockCreatedClient(cc grpc.ClientConnInterface) OnNewBlockCreatedCl
 
 func (c *onNewBlockCreatedClient) OnNewBlockCreated(ctx context.Context, in *OnNewBlockCreatedRequest, opts ...grpc.CallOption) (*OnNewBlockCreatedResponse, error) {
 	out := new(OnNewBlockCreatedResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.OnNewBlockCreated/OnNewBlockCreated", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.OnNewBlockCreated/OnNewBlockCreated", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4544,6 +4586,7 @@ func (c *onNewBlockCreatedClient) OnNewBlockCreated(ctx context.Context, in *OnN
 
 // OnNewBlockCreatedServer is the server API for OnNewBlockCreated service.
 type OnNewBlockCreatedServer interface {
+	//Called when transactions are applied and block is ready to be proposed
 	OnNewBlockCreated(context.Context, *OnNewBlockCreatedRequest) (*OnNewBlockCreatedResponse, error)
 }
 
@@ -4569,7 +4612,7 @@ func _OnNewBlockCreated_OnNewBlockCreated_Handler(srv interface{}, ctx context.C
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.OnNewBlockCreated/OnNewBlockCreated",
+		FullMethod: "/gagarin.network.api.OnNewBlockCreated/OnNewBlockCreated",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OnNewBlockCreatedServer).OnNewBlockCreated(ctx, req.(*OnNewBlockCreatedRequest))
@@ -4578,7 +4621,7 @@ func _OnNewBlockCreated_OnNewBlockCreated_Handler(srv interface{}, ctx context.C
 }
 
 var _OnNewBlockCreated_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "gagarin.bus.api.OnNewBlockCreated",
+	ServiceName: "gagarin.network.api.OnNewBlockCreated",
 	HandlerType: (*OnNewBlockCreatedServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -4594,6 +4637,7 @@ var _OnNewBlockCreated_serviceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type OnBlockCommitClient interface {
+	//Called after block is committed
 	OnBlockCommit(ctx context.Context, in *OnBlockCommitRequest, opts ...grpc.CallOption) (*OnBlockCommitResponse, error)
 }
 
@@ -4607,7 +4651,7 @@ func NewOnBlockCommitClient(cc grpc.ClientConnInterface) OnBlockCommitClient {
 
 func (c *onBlockCommitClient) OnBlockCommit(ctx context.Context, in *OnBlockCommitRequest, opts ...grpc.CallOption) (*OnBlockCommitResponse, error) {
 	out := new(OnBlockCommitResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.OnBlockCommit/OnBlockCommit", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.OnBlockCommit/OnBlockCommit", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4616,6 +4660,7 @@ func (c *onBlockCommitClient) OnBlockCommit(ctx context.Context, in *OnBlockComm
 
 // OnBlockCommitServer is the server API for OnBlockCommit service.
 type OnBlockCommitServer interface {
+	//Called after block is committed
 	OnBlockCommit(context.Context, *OnBlockCommitRequest) (*OnBlockCommitResponse, error)
 }
 
@@ -4641,7 +4686,7 @@ func _OnBlockCommit_OnBlockCommit_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.OnBlockCommit/OnBlockCommit",
+		FullMethod: "/gagarin.network.api.OnBlockCommit/OnBlockCommit",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OnBlockCommitServer).OnBlockCommit(ctx, req.(*OnBlockCommitRequest))
@@ -4650,7 +4695,7 @@ func _OnBlockCommit_OnBlockCommit_Handler(srv interface{}, ctx context.Context, 
 }
 
 var _OnBlockCommit_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "gagarin.bus.api.OnBlockCommit",
+	ServiceName: "gagarin.network.api.OnBlockCommit",
 	HandlerType: (*OnBlockCommitServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -4666,6 +4711,7 @@ var _OnBlockCommit_serviceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type OnNextViewClient interface {
+	//Called when transitioned to next view
 	OnNextView(ctx context.Context, in *OnNextViewRequest, opts ...grpc.CallOption) (*OnNextViewResponse, error)
 }
 
@@ -4679,7 +4725,7 @@ func NewOnNextViewClient(cc grpc.ClientConnInterface) OnNextViewClient {
 
 func (c *onNextViewClient) OnNextView(ctx context.Context, in *OnNextViewRequest, opts ...grpc.CallOption) (*OnNextViewResponse, error) {
 	out := new(OnNextViewResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.OnNextView/OnNextView", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.OnNextView/OnNextView", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4688,6 +4734,7 @@ func (c *onNextViewClient) OnNextView(ctx context.Context, in *OnNextViewRequest
 
 // OnNextViewServer is the server API for OnNextView service.
 type OnNextViewServer interface {
+	//Called when transitioned to next view
 	OnNextView(context.Context, *OnNextViewRequest) (*OnNextViewResponse, error)
 }
 
@@ -4713,7 +4760,7 @@ func _OnNextView_OnNextView_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.OnNextView/OnNextView",
+		FullMethod: "/gagarin.network.api.OnNextView/OnNextView",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OnNextViewServer).OnNextView(ctx, req.(*OnNextViewRequest))
@@ -4722,7 +4769,7 @@ func _OnNextView_OnNextView_Handler(srv interface{}, ctx context.Context, dec fu
 }
 
 var _OnNextView_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "gagarin.bus.api.OnNextView",
+	ServiceName: "gagarin.network.api.OnNextView",
 	HandlerType: (*OnNextViewServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -4738,6 +4785,7 @@ var _OnNextView_serviceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type OnNextEpochClient interface {
+	//Called when transitioned to next epoch
 	OnNextEpoch(ctx context.Context, in *OnNextEpochRequest, opts ...grpc.CallOption) (*OnNextEpochResponse, error)
 }
 
@@ -4751,7 +4799,7 @@ func NewOnNextEpochClient(cc grpc.ClientConnInterface) OnNextEpochClient {
 
 func (c *onNextEpochClient) OnNextEpoch(ctx context.Context, in *OnNextEpochRequest, opts ...grpc.CallOption) (*OnNextEpochResponse, error) {
 	out := new(OnNextEpochResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.OnNextEpoch/OnNextEpoch", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.OnNextEpoch/OnNextEpoch", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4760,6 +4808,7 @@ func (c *onNextEpochClient) OnNextEpoch(ctx context.Context, in *OnNextEpochRequ
 
 // OnNextEpochServer is the server API for OnNextEpoch service.
 type OnNextEpochServer interface {
+	//Called when transitioned to next epoch
 	OnNextEpoch(context.Context, *OnNextEpochRequest) (*OnNextEpochResponse, error)
 }
 
@@ -4785,7 +4834,7 @@ func _OnNextEpoch_OnNextEpoch_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.OnNextEpoch/OnNextEpoch",
+		FullMethod: "/gagarin.network.api.OnNextEpoch/OnNextEpoch",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OnNextEpochServer).OnNextEpoch(ctx, req.(*OnNextEpochRequest))
@@ -4794,7 +4843,7 @@ func _OnNextEpoch_OnNextEpoch_Handler(srv interface{}, ctx context.Context, dec 
 }
 
 var _OnNextEpoch_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "gagarin.bus.api.OnNextEpoch",
+	ServiceName: "gagarin.network.api.OnNextEpoch",
 	HandlerType: (*OnNextEpochServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -4810,23 +4859,41 @@ var _OnNextEpoch_serviceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type CommonServiceClient interface {
+	//returns block if found by hash, or empty if absent
 	GetBlockByHash(ctx context.Context, in *GetBlockByHashRequest, opts ...grpc.CallOption) (*GetBlockByHashResponse, error)
+	//returns blocks if found by height, or empty list if absent
 	GetBlocksByHeight(ctx context.Context, in *GetBlockByHeightRequest, opts ...grpc.CallOption) (*GetBlockByHeightResponse, error)
+	//returns blocks fork with head at headHash and having height blocks in it, or empty list if absent
 	GetFork(ctx context.Context, in *GetForkRequest, opts ...grpc.CallOption) (*GetForkResponse, error)
+	//returns true if block with that hash is in the blockchain, or empty if absent
 	Contains(ctx context.Context, in *ContainsRequest, opts ...grpc.CallOption) (*ContainsResponse, error)
+	//returns three chain starting at block with hash, or empty if absent
 	GetThreeChain(ctx context.Context, in *GetThreeChainRequest, opts ...grpc.CallOption) (*GetThreeChainResponse, error)
+	//returns block with max height of blockchain, we can't have more than one block on top height
 	GetHead(ctx context.Context, in *GetHeadRequest, opts ...grpc.CallOption) (*GetHeadResponse, error)
+	//returns max height of blockchain, we can't have more than one block on top height
 	GetTopHeight(ctx context.Context, in *GetTopHeightRequest, opts ...grpc.CallOption) (*GetTopHeightResponse, error)
+	//returns block with max height of blockchain, we can't have more than one block on top height
 	GetTopHeightBlock(ctx context.Context, in *GetTopHeightBlockRequest, opts ...grpc.CallOption) (*GetTopHeightBlockResponse, error)
+	//returns genesis block
 	GetGenesisBlock(ctx context.Context, in *GetGenesisBlockRequest, opts ...grpc.CallOption) (*GetGenesisBlockResponse, error)
+	//returns true if two blocks with given hashes are reachable through their parent-child relationship
 	IsSibling(ctx context.Context, in *IsSiblingRequest, opts ...grpc.CallOption) (*IsSiblingResponse, error)
+	//returns account at a given block by address and block hash, if hash is empty head version will be returned
 	GetAccount(ctx context.Context, in *GetAccountRequest, opts ...grpc.CallOption) (*GetAccountResponse, error)
+	//returns transaction by hash
 	GetTransaction(ctx context.Context, in *GetTransactionRequest, opts ...grpc.CallOption) (*GetTransactionResponse, error)
+	//returns peer, that proposed on given view number
 	GetProposerForView(ctx context.Context, in *GetProposerForViewRequest, opts ...grpc.CallOption) (*GetProposerForViewResponse, error)
+	//returns committee of peers
 	GetCommittee(ctx context.Context, in *GetCommitteeRequest, opts ...grpc.CallOption) (*GetCommitteeResponse, error)
+	//returns current view
 	GetCurrentView(ctx context.Context, in *GetCurrentViewRequest, opts ...grpc.CallOption) (*GetCurrentViewResponse, error)
+	//returns current epoch
 	GetCurrentEpoch(ctx context.Context, in *GetCurrentEpochRequest, opts ...grpc.CallOption) (*GetCurrentEpochResponse, error)
+	//returns top committed block
 	GetTopCommittedBlock(ctx context.Context, in *GetTopCommittedBlockRequest, opts ...grpc.CallOption) (*GetTopCommittedBlockResponse, error)
+	//adds transaction to tx_pool
 	ExecuteTransaction(ctx context.Context, in *ExecuteTransactionRequest, opts ...grpc.CallOption) (*ExecuteTransactionResponse, error)
 }
 
@@ -4840,7 +4907,7 @@ func NewCommonServiceClient(cc grpc.ClientConnInterface) CommonServiceClient {
 
 func (c *commonServiceClient) GetBlockByHash(ctx context.Context, in *GetBlockByHashRequest, opts ...grpc.CallOption) (*GetBlockByHashResponse, error) {
 	out := new(GetBlockByHashResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.CommonService/GetBlockByHash", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.CommonService/GetBlockByHash", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4849,7 +4916,7 @@ func (c *commonServiceClient) GetBlockByHash(ctx context.Context, in *GetBlockBy
 
 func (c *commonServiceClient) GetBlocksByHeight(ctx context.Context, in *GetBlockByHeightRequest, opts ...grpc.CallOption) (*GetBlockByHeightResponse, error) {
 	out := new(GetBlockByHeightResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.CommonService/GetBlocksByHeight", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.CommonService/GetBlocksByHeight", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4858,7 +4925,7 @@ func (c *commonServiceClient) GetBlocksByHeight(ctx context.Context, in *GetBloc
 
 func (c *commonServiceClient) GetFork(ctx context.Context, in *GetForkRequest, opts ...grpc.CallOption) (*GetForkResponse, error) {
 	out := new(GetForkResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.CommonService/GetFork", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.CommonService/GetFork", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4867,7 +4934,7 @@ func (c *commonServiceClient) GetFork(ctx context.Context, in *GetForkRequest, o
 
 func (c *commonServiceClient) Contains(ctx context.Context, in *ContainsRequest, opts ...grpc.CallOption) (*ContainsResponse, error) {
 	out := new(ContainsResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.CommonService/Contains", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.CommonService/Contains", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4876,7 +4943,7 @@ func (c *commonServiceClient) Contains(ctx context.Context, in *ContainsRequest,
 
 func (c *commonServiceClient) GetThreeChain(ctx context.Context, in *GetThreeChainRequest, opts ...grpc.CallOption) (*GetThreeChainResponse, error) {
 	out := new(GetThreeChainResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.CommonService/GetThreeChain", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.CommonService/GetThreeChain", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4885,7 +4952,7 @@ func (c *commonServiceClient) GetThreeChain(ctx context.Context, in *GetThreeCha
 
 func (c *commonServiceClient) GetHead(ctx context.Context, in *GetHeadRequest, opts ...grpc.CallOption) (*GetHeadResponse, error) {
 	out := new(GetHeadResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.CommonService/GetHead", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.CommonService/GetHead", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4894,7 +4961,7 @@ func (c *commonServiceClient) GetHead(ctx context.Context, in *GetHeadRequest, o
 
 func (c *commonServiceClient) GetTopHeight(ctx context.Context, in *GetTopHeightRequest, opts ...grpc.CallOption) (*GetTopHeightResponse, error) {
 	out := new(GetTopHeightResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.CommonService/GetTopHeight", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.CommonService/GetTopHeight", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4903,7 +4970,7 @@ func (c *commonServiceClient) GetTopHeight(ctx context.Context, in *GetTopHeight
 
 func (c *commonServiceClient) GetTopHeightBlock(ctx context.Context, in *GetTopHeightBlockRequest, opts ...grpc.CallOption) (*GetTopHeightBlockResponse, error) {
 	out := new(GetTopHeightBlockResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.CommonService/GetTopHeightBlock", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.CommonService/GetTopHeightBlock", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4912,7 +4979,7 @@ func (c *commonServiceClient) GetTopHeightBlock(ctx context.Context, in *GetTopH
 
 func (c *commonServiceClient) GetGenesisBlock(ctx context.Context, in *GetGenesisBlockRequest, opts ...grpc.CallOption) (*GetGenesisBlockResponse, error) {
 	out := new(GetGenesisBlockResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.CommonService/GetGenesisBlock", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.CommonService/GetGenesisBlock", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4921,7 +4988,7 @@ func (c *commonServiceClient) GetGenesisBlock(ctx context.Context, in *GetGenesi
 
 func (c *commonServiceClient) IsSibling(ctx context.Context, in *IsSiblingRequest, opts ...grpc.CallOption) (*IsSiblingResponse, error) {
 	out := new(IsSiblingResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.CommonService/IsSibling", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.CommonService/IsSibling", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4930,7 +4997,7 @@ func (c *commonServiceClient) IsSibling(ctx context.Context, in *IsSiblingReques
 
 func (c *commonServiceClient) GetAccount(ctx context.Context, in *GetAccountRequest, opts ...grpc.CallOption) (*GetAccountResponse, error) {
 	out := new(GetAccountResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.CommonService/GetAccount", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.CommonService/GetAccount", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4939,7 +5006,7 @@ func (c *commonServiceClient) GetAccount(ctx context.Context, in *GetAccountRequ
 
 func (c *commonServiceClient) GetTransaction(ctx context.Context, in *GetTransactionRequest, opts ...grpc.CallOption) (*GetTransactionResponse, error) {
 	out := new(GetTransactionResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.CommonService/GetTransaction", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.CommonService/GetTransaction", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4948,7 +5015,7 @@ func (c *commonServiceClient) GetTransaction(ctx context.Context, in *GetTransac
 
 func (c *commonServiceClient) GetProposerForView(ctx context.Context, in *GetProposerForViewRequest, opts ...grpc.CallOption) (*GetProposerForViewResponse, error) {
 	out := new(GetProposerForViewResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.CommonService/GetProposerForView", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.CommonService/GetProposerForView", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4957,7 +5024,7 @@ func (c *commonServiceClient) GetProposerForView(ctx context.Context, in *GetPro
 
 func (c *commonServiceClient) GetCommittee(ctx context.Context, in *GetCommitteeRequest, opts ...grpc.CallOption) (*GetCommitteeResponse, error) {
 	out := new(GetCommitteeResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.CommonService/GetCommittee", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.CommonService/GetCommittee", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4966,7 +5033,7 @@ func (c *commonServiceClient) GetCommittee(ctx context.Context, in *GetCommittee
 
 func (c *commonServiceClient) GetCurrentView(ctx context.Context, in *GetCurrentViewRequest, opts ...grpc.CallOption) (*GetCurrentViewResponse, error) {
 	out := new(GetCurrentViewResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.CommonService/GetCurrentView", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.CommonService/GetCurrentView", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4975,7 +5042,7 @@ func (c *commonServiceClient) GetCurrentView(ctx context.Context, in *GetCurrent
 
 func (c *commonServiceClient) GetCurrentEpoch(ctx context.Context, in *GetCurrentEpochRequest, opts ...grpc.CallOption) (*GetCurrentEpochResponse, error) {
 	out := new(GetCurrentEpochResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.CommonService/GetCurrentEpoch", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.CommonService/GetCurrentEpoch", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4984,7 +5051,7 @@ func (c *commonServiceClient) GetCurrentEpoch(ctx context.Context, in *GetCurren
 
 func (c *commonServiceClient) GetTopCommittedBlock(ctx context.Context, in *GetTopCommittedBlockRequest, opts ...grpc.CallOption) (*GetTopCommittedBlockResponse, error) {
 	out := new(GetTopCommittedBlockResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.CommonService/GetTopCommittedBlock", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.CommonService/GetTopCommittedBlock", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4993,7 +5060,7 @@ func (c *commonServiceClient) GetTopCommittedBlock(ctx context.Context, in *GetT
 
 func (c *commonServiceClient) ExecuteTransaction(ctx context.Context, in *ExecuteTransactionRequest, opts ...grpc.CallOption) (*ExecuteTransactionResponse, error) {
 	out := new(ExecuteTransactionResponse)
-	err := c.cc.Invoke(ctx, "/gagarin.bus.api.CommonService/ExecuteTransaction", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gagarin.network.api.CommonService/ExecuteTransaction", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -5002,23 +5069,41 @@ func (c *commonServiceClient) ExecuteTransaction(ctx context.Context, in *Execut
 
 // CommonServiceServer is the server API for CommonService service.
 type CommonServiceServer interface {
+	//returns block if found by hash, or empty if absent
 	GetBlockByHash(context.Context, *GetBlockByHashRequest) (*GetBlockByHashResponse, error)
+	//returns blocks if found by height, or empty list if absent
 	GetBlocksByHeight(context.Context, *GetBlockByHeightRequest) (*GetBlockByHeightResponse, error)
+	//returns blocks fork with head at headHash and having height blocks in it, or empty list if absent
 	GetFork(context.Context, *GetForkRequest) (*GetForkResponse, error)
+	//returns true if block with that hash is in the blockchain, or empty if absent
 	Contains(context.Context, *ContainsRequest) (*ContainsResponse, error)
+	//returns three chain starting at block with hash, or empty if absent
 	GetThreeChain(context.Context, *GetThreeChainRequest) (*GetThreeChainResponse, error)
+	//returns block with max height of blockchain, we can't have more than one block on top height
 	GetHead(context.Context, *GetHeadRequest) (*GetHeadResponse, error)
+	//returns max height of blockchain, we can't have more than one block on top height
 	GetTopHeight(context.Context, *GetTopHeightRequest) (*GetTopHeightResponse, error)
+	//returns block with max height of blockchain, we can't have more than one block on top height
 	GetTopHeightBlock(context.Context, *GetTopHeightBlockRequest) (*GetTopHeightBlockResponse, error)
+	//returns genesis block
 	GetGenesisBlock(context.Context, *GetGenesisBlockRequest) (*GetGenesisBlockResponse, error)
+	//returns true if two blocks with given hashes are reachable through their parent-child relationship
 	IsSibling(context.Context, *IsSiblingRequest) (*IsSiblingResponse, error)
+	//returns account at a given block by address and block hash, if hash is empty head version will be returned
 	GetAccount(context.Context, *GetAccountRequest) (*GetAccountResponse, error)
+	//returns transaction by hash
 	GetTransaction(context.Context, *GetTransactionRequest) (*GetTransactionResponse, error)
+	//returns peer, that proposed on given view number
 	GetProposerForView(context.Context, *GetProposerForViewRequest) (*GetProposerForViewResponse, error)
+	//returns committee of peers
 	GetCommittee(context.Context, *GetCommitteeRequest) (*GetCommitteeResponse, error)
+	//returns current view
 	GetCurrentView(context.Context, *GetCurrentViewRequest) (*GetCurrentViewResponse, error)
+	//returns current epoch
 	GetCurrentEpoch(context.Context, *GetCurrentEpochRequest) (*GetCurrentEpochResponse, error)
+	//returns top committed block
 	GetTopCommittedBlock(context.Context, *GetTopCommittedBlockRequest) (*GetTopCommittedBlockResponse, error)
+	//adds transaction to tx_pool
 	ExecuteTransaction(context.Context, *ExecuteTransactionRequest) (*ExecuteTransactionResponse, error)
 }
 
@@ -5095,7 +5180,7 @@ func _CommonService_GetBlockByHash_Handler(srv interface{}, ctx context.Context,
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.CommonService/GetBlockByHash",
+		FullMethod: "/gagarin.network.api.CommonService/GetBlockByHash",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CommonServiceServer).GetBlockByHash(ctx, req.(*GetBlockByHashRequest))
@@ -5113,7 +5198,7 @@ func _CommonService_GetBlocksByHeight_Handler(srv interface{}, ctx context.Conte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.CommonService/GetBlocksByHeight",
+		FullMethod: "/gagarin.network.api.CommonService/GetBlocksByHeight",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CommonServiceServer).GetBlocksByHeight(ctx, req.(*GetBlockByHeightRequest))
@@ -5131,7 +5216,7 @@ func _CommonService_GetFork_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.CommonService/GetFork",
+		FullMethod: "/gagarin.network.api.CommonService/GetFork",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CommonServiceServer).GetFork(ctx, req.(*GetForkRequest))
@@ -5149,7 +5234,7 @@ func _CommonService_Contains_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.CommonService/Contains",
+		FullMethod: "/gagarin.network.api.CommonService/Contains",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CommonServiceServer).Contains(ctx, req.(*ContainsRequest))
@@ -5167,7 +5252,7 @@ func _CommonService_GetThreeChain_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.CommonService/GetThreeChain",
+		FullMethod: "/gagarin.network.api.CommonService/GetThreeChain",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CommonServiceServer).GetThreeChain(ctx, req.(*GetThreeChainRequest))
@@ -5185,7 +5270,7 @@ func _CommonService_GetHead_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.CommonService/GetHead",
+		FullMethod: "/gagarin.network.api.CommonService/GetHead",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CommonServiceServer).GetHead(ctx, req.(*GetHeadRequest))
@@ -5203,7 +5288,7 @@ func _CommonService_GetTopHeight_Handler(srv interface{}, ctx context.Context, d
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.CommonService/GetTopHeight",
+		FullMethod: "/gagarin.network.api.CommonService/GetTopHeight",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CommonServiceServer).GetTopHeight(ctx, req.(*GetTopHeightRequest))
@@ -5221,7 +5306,7 @@ func _CommonService_GetTopHeightBlock_Handler(srv interface{}, ctx context.Conte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.CommonService/GetTopHeightBlock",
+		FullMethod: "/gagarin.network.api.CommonService/GetTopHeightBlock",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CommonServiceServer).GetTopHeightBlock(ctx, req.(*GetTopHeightBlockRequest))
@@ -5239,7 +5324,7 @@ func _CommonService_GetGenesisBlock_Handler(srv interface{}, ctx context.Context
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.CommonService/GetGenesisBlock",
+		FullMethod: "/gagarin.network.api.CommonService/GetGenesisBlock",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CommonServiceServer).GetGenesisBlock(ctx, req.(*GetGenesisBlockRequest))
@@ -5257,7 +5342,7 @@ func _CommonService_IsSibling_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.CommonService/IsSibling",
+		FullMethod: "/gagarin.network.api.CommonService/IsSibling",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CommonServiceServer).IsSibling(ctx, req.(*IsSiblingRequest))
@@ -5275,7 +5360,7 @@ func _CommonService_GetAccount_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.CommonService/GetAccount",
+		FullMethod: "/gagarin.network.api.CommonService/GetAccount",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CommonServiceServer).GetAccount(ctx, req.(*GetAccountRequest))
@@ -5293,7 +5378,7 @@ func _CommonService_GetTransaction_Handler(srv interface{}, ctx context.Context,
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.CommonService/GetTransaction",
+		FullMethod: "/gagarin.network.api.CommonService/GetTransaction",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CommonServiceServer).GetTransaction(ctx, req.(*GetTransactionRequest))
@@ -5311,7 +5396,7 @@ func _CommonService_GetProposerForView_Handler(srv interface{}, ctx context.Cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.CommonService/GetProposerForView",
+		FullMethod: "/gagarin.network.api.CommonService/GetProposerForView",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CommonServiceServer).GetProposerForView(ctx, req.(*GetProposerForViewRequest))
@@ -5329,7 +5414,7 @@ func _CommonService_GetCommittee_Handler(srv interface{}, ctx context.Context, d
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.CommonService/GetCommittee",
+		FullMethod: "/gagarin.network.api.CommonService/GetCommittee",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CommonServiceServer).GetCommittee(ctx, req.(*GetCommitteeRequest))
@@ -5347,7 +5432,7 @@ func _CommonService_GetCurrentView_Handler(srv interface{}, ctx context.Context,
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.CommonService/GetCurrentView",
+		FullMethod: "/gagarin.network.api.CommonService/GetCurrentView",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CommonServiceServer).GetCurrentView(ctx, req.(*GetCurrentViewRequest))
@@ -5365,7 +5450,7 @@ func _CommonService_GetCurrentEpoch_Handler(srv interface{}, ctx context.Context
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.CommonService/GetCurrentEpoch",
+		FullMethod: "/gagarin.network.api.CommonService/GetCurrentEpoch",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CommonServiceServer).GetCurrentEpoch(ctx, req.(*GetCurrentEpochRequest))
@@ -5383,7 +5468,7 @@ func _CommonService_GetTopCommittedBlock_Handler(srv interface{}, ctx context.Co
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.CommonService/GetTopCommittedBlock",
+		FullMethod: "/gagarin.network.api.CommonService/GetTopCommittedBlock",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CommonServiceServer).GetTopCommittedBlock(ctx, req.(*GetTopCommittedBlockRequest))
@@ -5401,7 +5486,7 @@ func _CommonService_ExecuteTransaction_Handler(srv interface{}, ctx context.Cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gagarin.bus.api.CommonService/ExecuteTransaction",
+		FullMethod: "/gagarin.network.api.CommonService/ExecuteTransaction",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CommonServiceServer).ExecuteTransaction(ctx, req.(*ExecuteTransactionRequest))
@@ -5410,7 +5495,7 @@ func _CommonService_ExecuteTransaction_Handler(srv interface{}, ctx context.Cont
 }
 
 var _CommonService_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "gagarin.bus.api.CommonService",
+	ServiceName: "gagarin.network.api.CommonService",
 	HandlerType: (*CommonServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

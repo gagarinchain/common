@@ -31,8 +31,8 @@ func NewTxDispatcher(txChan chan *Message) Dispatcher {
 func (d *HotstuffDispatcher) Dispatch(msg *Message) {
 	go func() {
 		switch msg.Type {
-		case pb.Message_EPOCH_START:
-			d.epochChan <- msg
+		case pb.Message_SYNCHRONIZE:
+			fallthrough
 		case pb.Message_VOTE:
 			fallthrough
 		case pb.Message_PROPOSAL:

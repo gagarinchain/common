@@ -118,6 +118,11 @@ func (_m *Pacer) GetPeers() []*gagarinchaincommon.Peer {
 	return r0
 }
 
+// NotifyEvent provides a mock function with given fields: event
+func (_m *Pacer) NotifyEvent(event api.Event) {
+	_m.Called(event)
+}
+
 // ProposerForHeight provides a mock function with given fields: blockHeight
 func (_m *Pacer) ProposerForHeight(blockHeight int32) *gagarinchaincommon.Peer {
 	ret := _m.Called(blockHeight)

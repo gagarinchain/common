@@ -6,63 +6,111 @@ import "message.proto";
 
 option go_package = "pb";
 
+/**
+ * Used during processing proposal, synchronous
+ */
 service OnReceiveProposal {
+    //Called before proposed block is added to blockchain
     rpc BeforeProposedBlockAdded (BeforeProposedBlockAddedRequest) returns (BeforeProposedBlockAddedResponse);
+    //Called after proposed block is added to blockchain
     rpc AfterProposedBlockAdded (AfterProposedBlockAddedRequest) returns (AfterProposedBlockAddedResponse);
+    //Called before replica voted for block
     rpc BeforeVoted (BeforeVotedRequest) returns (BeforeVotedResponse);
+    //Called after replica voted for block
     rpc AfterVoted (AfterVotedRequest) returns (AfterVotedResponse);
 }
 
+/**
+ * Used during proposing, synchronous
+ */
 service OnProposal {
+    //Called when proposal is created
     rpc OnProposal (OnProposalRequest) returns (OnProposalResponse);
 }
+
+/**
+ * Used during processing received vote, synchronous
+ */
 service OnVoteReceived {
+    //Called when vote is received
     rpc OnVoteReceived (OnVoteReceivedRequest) returns (OnVoteReceivedResponse);
+    //Called when quorum certificate is created
     rpc OnQCFinished (OnQCFinishedRequest) returns (OnQCFinishedResponse);
 }
+
+/**
+ * Used when new block is created, synchronous
+ */
 service OnNewBlockCreated {
+    //Called when transactions are applied and block is ready to be proposed
     rpc OnNewBlockCreated (OnNewBlockCreatedRequest) returns (OnNewBlockCreatedResponse);
 }
+/**
+ * Used when block is commited, synchronous
+ */
 service OnBlockCommit {
+    //Called after block is committed
     rpc OnBlockCommit (OnBlockCommitRequest) returns (OnBlockCommitResponse);
 }
+/**
+ * Used when view is changed, synchronous
+ */
 service OnNextView {
+    //Called when transitioned to next view
     rpc OnNextView (OnNextViewRequest) returns (OnNextViewResponse);
 }
+/**
+ * Used when epoch is changed, synchronous
+ */
 service OnNextEpoch {
+    //Called when transitioned to next epoch
     rpc OnNextEpoch (OnNextEpochRequest) returns (OnNextEpochResponse);
 }
 
 message OnBlockCommitRequest {
+    //Self peer of this node
     gagarin.network.storage.Peer me = 1;
+    //Block that was committed
     gagarin.network.storage.BlockS block = 2;
+    //Forked Blocks that were rejected during commit
     repeated gagarin.network.storage.BlockS orphans = 3;
 }
 message OnBlockCommitResponse {
 }
 message BeforeProposedBlockAddedRequest {
+    //Self peer of this node
     gagarin.network.storage.Peer me = 1;
+    //Proposal to be added
     gagarin.network.core.ProposalPayload proposal = 2;
 }
 message BeforeProposedBlockAddedResponse {
+    //Proposal to be added
     gagarin.network.core.ProposalPayload proposal = 1;
 }
 message AfterProposedBlockAddedRequest {
+    //Self peer of this node
     gagarin.network.storage.Peer me = 1;
+    //Proposal that was added
     gagarin.network.core.ProposalPayload proposal = 2;
+    //Receipts that was created during block's transactions application
     repeated gagarin.network.storage.Receipt receipts = 3;
 }
 message AfterProposedBlockAddedResponse {
 }
 message BeforeVotedRequest {
+    //Self peer of this node
     gagarin.network.storage.Peer me = 1;
+    //Vote message
     gagarin.network.core.VotePayload vote = 2;
 }
 message BeforeVotedResponse {
+    //Vote message
     gagarin.network.core.VotePayload vote = 1;
 }
 message AfterVotedRequest {
+    //Self peer of this node
     gagarin.network.storage.Peer me = 1;
+    //Vote message
     gagarin.network.core.VotePayload vote = 2;
 }
 message AfterVotedResponse {
@@ -74,59 +122,91 @@ message OnProposalRequest {
 message OnProposalResponse {
 }
 message OnVoteReceivedRequest {
+    //Self peer of this node
     gagarin.network.storage.Peer me = 1;
+    //Vote message
     gagarin.network.core.VotePayload vote = 2;
 }
 message OnVoteReceivedResponse {
 }
 message OnQCFinishedRequest {
+    //Self peer of this node
     gagarin.network.storage.Peer me = 1;
+    //Created quorum certificate
     gagarin.network.storage.QuorumCertificateS qc = 2;
 }
 message OnQCFinishedResponse {
+    //Modified quorum certificate
     gagarin.network.storage.QuorumCertificateS qc = 2;
 }
 message OnNextViewRequest {
+    //Self peer of this node
     gagarin.network.storage.Peer me = 1;
+    //View number
     int32 newView = 2;
 }
 message OnNextViewResponse {
 }
 
 message OnNextEpochRequest {
+    //Self peer of this node
     gagarin.network.storage.Peer me = 1;
+    //Epoch number
     int32 newEpoch = 2;
 }
 message OnNextEpochResponse {
 }
 
 message OnNewBlockCreatedRequest  {
+    //Self peer of this node
     gagarin.network.storage.Peer me = 1;
+    //Block that was created
     gagarin.network.storage.BlockS block = 2;
+    //Receipts that was created during block's transactions application
     repeated gagarin.network.storage.Receipt receipts = 3;
 }
 message OnNewBlockCreatedResponse  {
+    //Modified block
     gagarin.network.storage.BlockS block = 1;
 }
 
+//Pull service
 service CommonService {
+    //returns block if found by hash, or empty if absent
     rpc GetBlockByHash (GetBlockByHashRequest) returns (GetBlockByHashResponse);
+    //returns blocks if found by height, or empty list if absent
     rpc GetBlocksByHeight (GetBlockByHeightRequest) returns (GetBlockByHeightResponse);
+    //returns blocks fork with head at headHash and having height blocks in it, or empty list if absent
     rpc GetFork (GetForkRequest) returns (GetForkResponse);
+    //returns true if block with that hash is in the blockchain, or empty if absent
     rpc Contains (ContainsRequest) returns (ContainsResponse);
+    //returns three chain starting at block with hash, or empty if absent
     rpc GetThreeChain (GetThreeChainRequest) returns (GetThreeChainResponse);
+    //returns block with max height of blockchain, we can't have more than one block on top height
     rpc GetHead (GetHeadRequest) returns (GetHeadResponse);
+    //returns max height of blockchain, we can't have more than one block on top height
     rpc GetTopHeight (GetTopHeightRequest) returns (GetTopHeightResponse);
+    //returns block with max height of blockchain, we can't have more than one block on top height
     rpc GetTopHeightBlock (GetTopHeightBlockRequest) returns (GetTopHeightBlockResponse);
+    //returns genesis block
     rpc GetGenesisBlock (GetGenesisBlockRequest) returns (GetGenesisBlockResponse);
+    //returns true if two blocks with given hashes are reachable through their parent-child relationship
     rpc IsSibling (IsSiblingRequest) returns (IsSiblingResponse);
+    //returns account at a given block by address and block hash, if hash is empty head version will be returned
     rpc GetAccount(GetAccountRequest) returns (GetAccountResponse);
+    //returns transaction by hash
     rpc GetTransaction(GetTransactionRequest) returns (GetTransactionResponse);
+    //returns peer, that proposed on given view number
     rpc GetProposerForView(GetProposerForViewRequest) returns (GetProposerForViewResponse);
+    //returns committee of peers
     rpc GetCommittee(GetCommitteeRequest) returns (GetCommitteeResponse);
+    //returns current view
     rpc GetCurrentView(GetCurrentViewRequest) returns (GetCurrentViewResponse);
+    //returns current epoch
     rpc GetCurrentEpoch(GetCurrentEpochRequest) returns (GetCurrentEpochResponse);
+    //returns top committed block
     rpc GetTopCommittedBlock(GetTopCommittedBlockRequest) returns (GetTopCommittedBlockResponse);
+    //adds transaction to tx_pool
     rpc ExecuteTransaction(ExecuteTransactionRequest) returns (ExecuteTransactionResponse);
 }
 

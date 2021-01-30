@@ -17,6 +17,7 @@ type ProposerForHeight interface {
 type EventNotifier interface {
 	SubscribeProtocolEvents(sub chan Event)
 	FireEvent(event Event)
+	NotifyEvent(event Event)
 }
 
 type Pacer interface {
@@ -29,21 +30,32 @@ type Pacer interface {
 }
 
 type Proposal interface {
+	Cert() Certificate
 	Sender() *common.Peer
 	NewBlock() Block
 	Signature() *crypto.Signature
-	HQC() QuorumCertificate
 	GetMessage() *pb.ProposalPayload
 	Sign(key *crypto.PrivateKey)
 }
 
+type Sync interface {
+	Cert() Certificate
+	Height() int32
+	Voting() bool
+	Sign(key *crypto.PrivateKey)
+	GetMessage() *pb.SynchronizePayload
+	Sender() *common.Peer
+	Signature() *crypto.Signature
+	VotingSignature() *crypto.Signature
+}
+
 type Vote interface {
+	Cert() Certificate
 	Sign(key *crypto.PrivateKey)
 	GetMessage() *pb.VotePayload
 	Sender() *common.Peer
 	Header() Header
 	Signature() *crypto.Signature
-	HQC() QuorumCertificate
 }
 
 type EventPayload interface{}
@@ -57,6 +69,8 @@ const (
 	VotesCollected      EventType = iota
 	Proposed            EventType = iota
 	ChangedView         EventType = iota
+	HCUpdated           EventType = iota
+	SCCreated           EventType = iota
 )
 
 // We intentionally duplicated subset of common.Events here, simply to isolate protocol logic

@@ -1,4 +1,7 @@
 syntax = "proto3";
+/**
+ * This package defines structures that are used in Integration buss
+ */
 package gagarin.network.event;
 
 option go_package = "pb";

@@ -12,7 +12,7 @@ message Message {
     enum MessageType {
         HELLO_REQUEST   = 0;
         HELLO_RESPONSE   = 1;
-        EPOCH_START   = 2;
+        SYNCHRONIZE   = 2;
         VOTE    = 3;
         PROPOSAL = 4;
         BLOCK_REQUEST = 5;
@@ -29,27 +29,32 @@ message HelloPayload {
     int64 time = 3;
 }
 
-message EpochStartPayload {
-    oneof body {
-        QuorumCertificate cert = 1;
-        Signature genesisSignature = 2;
-
+message SynchronizePayload {
+    oneof cert {
+        QuorumCertificate qc = 1;
+        SynchronizeCertificate sc = 2;
     }
     Signature signature = 3;
-    int32 epoch_number = 4;
+    Signature votingSignature = 4;
+    int32 height = 5;
 }
 
 message ProposalPayload {
-    QuorumCertificate cert = 1;
-    Signature signature = 2;
-    Block block = 3;
-
+    oneof cert {
+        QuorumCertificate qc = 1;
+        SynchronizeCertificate sc = 2;
+    }
+    Signature signature = 3;
+    Block block = 4;
 }
 
 message VotePayload {
-    QuorumCertificate cert = 1;
-    Signature signature = 2;
-    BlockHeader header = 3;
+    oneof cert {
+        QuorumCertificate qc = 1;
+        SynchronizeCertificate sc = 2;
+    }
+    Signature signature = 3;
+    BlockHeader header = 4;
 }
 
 message Signature {
@@ -98,8 +103,19 @@ message Error {
     }
 }
 message QuorumCertificate {
-    BlockHeader header = 1;
-    SignatureAggregate signatureAggregate = 2;
+    CertType    type = 1;
+    BlockHeader header = 2;
+    SignatureAggregate signatureAggregate = 3;
+
+    enum CertType {
+        QREF   = 0;
+        EMPTY    = 1;
+    }
+}
+
+message SynchronizeCertificate {
+    int32 height = 1;
+    SignatureAggregate signatureAggregate = 3;
 }
 
 message Block {

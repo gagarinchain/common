@@ -84,3 +84,10 @@ func TestFixedLengthHexKeyMerkleTrie_Values2(t *testing.T) {
 	assert.Equal(t, trie.root.Key(), []byte("0x"))
 
 }
+
+func TestEmptyProof(t *testing.T) {
+	proof := New().Proof()
+
+	assert.Equal(t, "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470", proof.Hex())
+
+}

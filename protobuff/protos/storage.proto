@@ -1,11 +1,26 @@
 syntax = "proto3";
 option go_package = "pb";
+/**
+ * This package defines structures that are stored in  storage
+ */
 package gagarin.network.storage;
 
 message QuorumCertificateS {
-    BlockHeaderS header = 1;
-    SignatureAggregateS signatureAggregate = 2;
+    CertType type = 1;
+    BlockHeaderS header = 2;
+    SignatureAggregateS signatureAggregate = 3;
+
+    enum CertType {
+        BLOCK   = 0;
+        EMPTY    = 1;
+    }
 }
+
+message SynchronizeCertificateS {
+    int32 height = 1;
+    SignatureAggregateS signatureAggregate = 3;
+}
+
 
 message BlockS {
     BlockHeaderS header = 1;

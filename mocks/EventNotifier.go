@@ -17,6 +17,11 @@ func (_m *EventNotifier) FireEvent(event api.Event) {
 	_m.Called(event)
 }
 
+// NotifyEvent provides a mock function with given fields: event
+func (_m *EventNotifier) NotifyEvent(event api.Event) {
+	_m.Called(event)
+}
+
 // SubscribeProtocolEvents provides a mock function with given fields: sub
 func (_m *EventNotifier) SubscribeProtocolEvents(sub chan api.Event) {
 	_m.Called(sub)

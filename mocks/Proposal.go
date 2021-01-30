@@ -34,22 +34,6 @@ func (_m *Proposal) GetMessage() *pb.ProposalPayload {
 	return r0
 }
 
-// HQC provides a mock function with given fields:
-func (_m *Proposal) HQC() api.QuorumCertificate {
-	ret := _m.Called()
-
-	var r0 api.QuorumCertificate
-	if rf, ok := ret.Get(0).(func() api.QuorumCertificate); ok {
-		r0 = rf()
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(api.QuorumCertificate)
-		}
-	}
-
-	return r0
-}
-
 // NewBlock provides a mock function with given fields:
 func (_m *Proposal) NewBlock() api.Block {
 	ret := _m.Called()

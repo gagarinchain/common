@@ -87,13 +87,32 @@ type Header interface {
 	Sign(key *crypto.PrivateKey) *crypto.Signature
 }
 
+type Serializable interface {
+	ToBytes() ([]byte, error)
+	FromBytes([]byte) error
+}
+
+type Certificate interface {
+	Serializable
+	Type() CertType
+	Height() int32
+	SignatureAggregate() *crypto.SignatureAggregate
+	GetHash() common.Hash
+	IsValid(qcHash common.Hash, committee []*crypto.PublicKey) (bool, error)
+}
+
 type QuorumCertificate interface {
+	Certificate
 	SignatureAggregate() *crypto.SignatureAggregate
 	QrefBlock() Header
 	GetMessage() *pb.QuorumCertificate
-	GetHash() common.Hash
-	IsValid(qcHash common.Hash, committee []*crypto.PublicKey) (bool, error)
 	ToStorageProto() *pb.QuorumCertificateS
+}
+
+type SynchronizeCertificate interface {
+	Certificate
+	GetMessage() *pb.SynchronizeCertificate
+	ToStorageProto() *pb.SynchronizeCertificateS
 }
 
 type Transaction interface {
@@ -124,6 +143,7 @@ type Iterator interface {
 }
 
 type Type int
+type CertType int
 
 const (
 	SettlementAddressHex    = "0x9cf72c59bb3624b7d2a9d82059b2f3832fd9973d"
@@ -139,3 +159,11 @@ const (
 	Proof      Type = iota
 	Redeem     Type = iota
 )
+
+const (
+	QRef  CertType = iota
+	Empty CertType = iota
+	SC    CertType = iota
+)
+
+const EmptyTxHashHex = "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
