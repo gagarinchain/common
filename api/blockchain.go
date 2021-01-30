@@ -103,7 +103,6 @@ type Certificate interface {
 
 type QuorumCertificate interface {
 	Certificate
-	SignatureAggregate() *crypto.SignatureAggregate
 	QrefBlock() Header
 	GetMessage() *pb.QuorumCertificate
 	ToStorageProto() *pb.QuorumCertificateS
